@@ -1,27 +1,31 @@
-from abc import ABC
-from datetime import datetime
-from enum import Enum
+from transaction import Transaction,TransactionType
 
-class TransactionType(Enum):
-    EXPENCE="Expence"
-    INCOME="Income"
-
-class Transaction():
-    def __init__(self,type:TransactionType,amount: int,date:datetime,category:str,description:str)->None:
-        self.amount=amount
-        self.date=date
-        self.type=type
-        self.category=category
-        self.description=description
+class PersonalFinanceManager:
+    
+    lst_transactions=list()
+    balance=0
+    
+    @classmethod
+    def add_transaction(cls,transaction:Transaction)-> None:
         
-    def __str__(self) -> str:
-        return f"type: {self.type.value}, date: {self.date}, amount: {self.amount}, category :{self.category}, description: {self.description}"
-
+        print(TransactionType.INCOM.value)
+        if transaction.type.value==TransactionType.INCOM.values():
+            cls.balance+=transaction.amount
+        elif transaction.type.value==TransactionType.EXPENCE.values():
+            cls.balance-=transaction.amount
+        else:
+            raise Exception("Invalid transaction type")
         
-
+        cls.lst_transactions.append((transaction,cls.balance))
+    
+    @classmethod
+    def show_transactions(cls)-> None:
+        for t in cls.lst_transactions:
+            print(t) 
+            
 t1=Transaction(TransactionType.INCOME,10000,'2020-01-02 11:30','salary','Teaching math')
 t2=Transaction(TransactionType.EXPENCE,2000,'2021-01-02 12:30','tuition','Programming bootcamp')    
     
-print(t1)
-print(t2) 
- 
+PersonalFinanceManager.add_transaction(t1)
+PersonalFinanceManager.add_transaction(t2)
+PersonalFinanceManager.show_transactions()
