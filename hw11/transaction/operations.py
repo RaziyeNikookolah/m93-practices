@@ -1,6 +1,6 @@
-from datetime import datetime
+from datetime import datetime,date
 from transaction import Transaction,TransactionType
-from handlers import FileHandler
+from core.handlers import FileHandler
  
 class PersonalFinanceManager:
     lst_transactions = []
@@ -28,7 +28,7 @@ class PersonalFinanceManager:
         cls.__db.append_transaction(transaction)
     
     @classmethod
-    def show_transactions(cls ,start_date:str=None,end_date:str=None) -> None:
+    def show_transactions(cls ,start_date:date=None,end_date:date=None) -> None:
         """View all transactions between two dates."""
         if start_date==None and end_date==None:# show all transactions            
             lst_result=cls.__db.get_all_transactions()
