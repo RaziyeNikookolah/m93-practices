@@ -1,5 +1,6 @@
 import shelve
 from datetime import date
+from transaction import Transaction
 
 class FileHandler:
     def __init__(self, file_path):
@@ -9,14 +10,14 @@ class FileHandler:
         with shelve.open(self.file_path)as db:
             return list(db)
 
-    def append_transaction(self, item):
+    def append_transaction(self, item:Transaction):
         with shelve.open(self.file_path)as db:
-            db = db.update(item)
+            db = db.update({item.id:item})
 
-    def search_transaction_by_date(self, start_date:date,end_date:date):
+    def search_transaction_by_date_range(self, start_date:date,end_date:date):
         with shelve.open(self.file_path)as db:
             founded_lst=[]
-            for item in db:               
+            for item in list(db):               
                 if item.get["date"] >=start_date and item.get["date"]<=end_date:
                     founded_lst.append(item)
             return founded_lst

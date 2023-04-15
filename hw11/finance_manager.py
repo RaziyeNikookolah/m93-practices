@@ -1,4 +1,4 @@
-from personal_finance_manager import PersonalFinanceManager,TransactionType,Transaction
+from operations import PersonalFinanceManager,TransactionType,Transaction
 
 import argparse
 

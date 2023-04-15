@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-import decimal
+from decimal import Decimal
 
 class TransactionType(Enum):
     EXPENSE = "Expense"
@@ -9,8 +9,8 @@ class TransactionType(Enum):
 class Transaction():
     counter = 0
     def __init__(self, type: TransactionType, amount: str, date: str, category: str, description: str) -> None:
-        self.amount = decimal(amount)
-        self.date = datetime.strptime(date, '%Y-%m-%d %H:%M')
+        self.amount = Decimal(amount)
+        self.date = datetime.strptime(date, '%Y-%m-%d')
         self.type = type
         self.category = category
         self.description = description
