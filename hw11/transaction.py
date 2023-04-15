@@ -1,26 +1,24 @@
 from datetime import datetime
 from enum import Enum
+import decimal
 
 class TransactionType(Enum):
-    EXPENCE="Expence"
-    INCOME="Income"
+    EXPENSE = "Expense"
+    INCOME = "Income"
 
 class Transaction():
-    def __init__(self,type:TransactionType,amount: int,date:datetime,category:str,description:str)->None:
-        self.amount=amount
-        self.date=date
-        self.type=type
-        self.category=category
-        self.description=description
+    counter = 0
+    def __init__(self, type: TransactionType, amount: str, date: str, category: str, description: str) -> None:
+        self.amount = decimal(amount)
+        self.date = datetime.strptime(date, '%Y-%m-%d %H:%M')
+        self.type = type
+        self.category = category
+        self.description = description
+        self.__class__.counter+=1
+        self.id =self.__class__.counter
         
     def __str__(self) -> str:
-        return f"type: {self.type.value}, date: {self.date}, amount: {self.amount}, category :{self.category}, description: {self.description}"
+        return f"{self.id}) type: {self.type.value}, date: {self.date}, amount: {self.amount}, category: {self.category}, description: {self.description}"
+   
 
-        
-
-# t1=Transaction(TransactionType.INCOME,10000,'2020-01-02 11:30','salary','Teaching math')
-# t2=Transaction(TransactionType.EXPENCE,2000,'2021-01-02 12:30','tuition','Programming bootcamp')    
-    
-# print(t1)
-# print(t2) 
  
