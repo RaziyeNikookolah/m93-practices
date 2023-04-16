@@ -4,13 +4,13 @@ from core.handlers import FileHandler
 
 
 class PersonalFinanceManager:
-    lst_transactions = []
+
     __db = FileHandler("storage/transactions.shelve")
     balance = 0
 
     @classmethod
     def get_all_transaction_from_file(cls):
-        cls.lst_transactions = cls.__db.get_all_transactions()
+        return cls.__db.get_all_transactions()
 
     @classmethod
     def add_transaction(cls, transaction: Transaction) -> None:
@@ -25,7 +25,9 @@ class PersonalFinanceManager:
         # dict_transaction={'type': transaction.type , 'date': transaction.date, 'amount': transaction.amount, 'category' :
         #                 transaction.category, 'description': transaction.description,'balance':cls.balance}
         # cls.lst_transactions.append(dict_transaction)
-        cls.lst_transactions.append(transaction)
+        # transaction.id = cls.transaction_counter
+        # cls.lst_transactions.append(transaction)
+
         cls.__db.append_transaction(transaction)
 
     @classmethod
