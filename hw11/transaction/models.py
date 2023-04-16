@@ -13,7 +13,7 @@ class Transaction():
 
     def __init__(self, type: TransactionType, amount: Decimal, date: str, category: str, description: str) -> None:
         self.amount = Decimal(amount)
-        self.date = datetime.strptime(date, '%Y-%m-%d')
+        self.date = datetime.strptime(date, '%Y-%m-%d').date()
         self.type = type
         self.category = category
         self.description = description

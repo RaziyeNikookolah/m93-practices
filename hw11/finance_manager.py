@@ -29,7 +29,13 @@ def parse_args() -> argparse.Namespace:
                              help="Start date (YYYY-MM-DD)")
     view_parser.add_argument("--end_date", type=str,
                              help="End date (YYYY-MM-DD)")
-
+    # Report transactions subcommand
+    report_parser = subparsers.add_parser(
+        "report", help="generate a summary report of transactions between two dates")
+    report_parser.add_argument("--start_date", type=str,
+                               help="Start date (YYYY-MM-DD)")
+    report_parser.add_argument("--end_date", type=str,
+                               help="End date (YYYY-MM-DD)")
     return parser.parse_args()
 
 
@@ -49,6 +55,10 @@ def main() -> None:
 
     elif args.command == "view":  # check dates are valedate
         PersonalFinanceManager.show_transactions(
+            args.start_date, args.end_date)
+
+    elif args.command == "report":  # check dates are valedate
+        PersonalFinanceManager.report_overal_summary_in_date_range(
             args.start_date, args.end_date)
 
 
