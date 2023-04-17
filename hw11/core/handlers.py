@@ -3,7 +3,31 @@ from datetime import date
 from transaction.models import Transaction, TransactionType
 
 
-class FileHandler:
+# class BalanceFileHandler:
+
+#     def __init__(self, file_path):
+#         self.file_path = file_path
+
+#     def get_overal_expence_balance(self):
+#         with shelve.open(self.file_path)as db:
+#             return db.get("OVERALL_EXPENCE_BALANCE", 0)
+
+#     def get_overal_income_balance(self):
+#         with shelve.open(self.file_path)as db:
+#             return db.get("OVERAL_INCONE_BALANCE", 0)
+
+#     def set_overal_expence_balance(self, balance):
+#         with shelve.open(self.file_path)as db:
+#             db = db.update({"OVERALL_EXPENCE_BALANCE": db.get(
+#                 "OVERALL_EXPENCE_BALANCE", 0)-balance})
+
+#     def set_overal_income_balance(self, balance):
+#         with shelve.open(self.file_path)as db:
+#             db = db.update({"OVERAL_INCONE_BALANCE": db.get(
+#                 "OVERAL_INCONE_BALANCE", 0)+balance})
+
+
+class TransactionsFileHandler:
     def __init__(self, file_path):
         self.file_path = file_path
 

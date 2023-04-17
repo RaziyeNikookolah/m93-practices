@@ -15,7 +15,7 @@ def parse_args() -> argparse.Namespace:
                             help="Transaction type (income or expense)")
     add_parser.add_argument("--date", type=str, required=True,
                             help="Transaction date (YYYY-MM-DD)")
-    add_parser.add_argument("--amount", type=float,
+    add_parser.add_argument("--amount", type=str,
                             required=True, help="Transaction amount")
     add_parser.add_argument("--category", type=str,
                             required=True, help="Transaction category")
