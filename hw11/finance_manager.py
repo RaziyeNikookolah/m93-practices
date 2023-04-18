@@ -1,5 +1,6 @@
 from transaction.operations import PersonalFinanceManager
 from transaction.models import Transaction, TransactionType
+from core.util import date_validation, amount_validation
 import argparse
 
 
@@ -45,19 +46,25 @@ args = parse_args()
 def main() -> None:
     """Main function."""
     args = parse_args()
-
     if args.command == "add":  # TODO rasis error if not ok and make it lowercase for check and all inputes are entered
         # TODO validation on getting type
+
+        date_validation(args.date)
+        amount_validation(args.amount)
         transaction = Transaction(
             args.type, args.amount, args.date, args.category, args.description)
         PersonalFinanceManager.add_transaction(transaction)
         print("Transaction added successfully..")
 
     elif args.command == "view":  # check dates are valedate
+        date_validation(args.start_date)
+        date_validation(args.end_date)
         PersonalFinanceManager.show_transactions(
             args.start_date, args.end_date)
 
     elif args.command == "report":  # check dates are valedate
+        date_validation(args.start_date)
+        date_validation(args.end_date)
         PersonalFinanceManager.report_overal_summary_in_date_range(
             args.start_date, args.end_date)
 

@@ -54,8 +54,6 @@ class TransactionsFileHandler:
             total_expence = 0
             income_category = {}
             expence_category = {}
-            income_transaction_count = 0
-            expence_transaction_count = 0
 
             item: Transaction
             for item in list(db.values()):
@@ -65,13 +63,11 @@ class TransactionsFileHandler:
                         total_income += item.amount
                         income_category[item.category] = income_category.get(
                             item.category, 0)+1
-                        income_transaction_count += 1
                     elif item.type == TransactionType.EXPENSE:
                         total_expence += item.amount
                         expence_category[item.category] = expence_category.get(
                             item.category, 0)+1
-                        expence_transaction_count += 1
-            return {"total_income": total_income, "income_category": income_category, "income_transaction_count": income_transaction_count, "total_expence": total_expence, "expence_category": expence_category, "expence_transaction_count": expence_transaction_count}
+            return {"total_income": total_income, "income_category": income_category, "total_expence": total_expence, "expence_category": expence_category}
     # def get_all_values(self):
     #     with shelve.open(self.file_path)as db:
     #         return list(db.values())

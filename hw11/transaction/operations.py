@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from transaction.models import Transaction, TransactionType
-from core.handlers import TransactionsFileHandler, BalanceFileHandler
+from core.handlers import TransactionsFileHandler
+# , BalanceFileHandler
 
 
 class PersonalFinanceManager:
@@ -53,7 +54,6 @@ class PersonalFinanceManager:
     def report_overal_summary_in_date_range(cls, start_date: date = None, end_date: date = None) -> None:
         """report overall summary between two dates."""
         if start_date != None and end_date != None:  # show all transactions
-
             start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
             end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
             dict_result = cls.__tlb_transaction.summary_report_between_two_dates_(
@@ -61,6 +61,10 @@ class PersonalFinanceManager:
             if dict_result.get("income_transaction_count") == 0 and dict_result.get("expence_transaction_count") == 0:
                 print("No Transaction added..")
             else:
-                print(dict_result)
+                balance = dict_result["total_income"] - \
+                    dict_result["total_expence"]
+                # print(dict_result, f" balance : {balance}")
+                print(
+                    f"'total_income': {dict_result['total_income']}, 'income_category': {dict_result['income_category']}, 'total_expence': {dict_result['total_expence']}, 'expence_category': {dict_result['expence_category']}, balance : {balance}")
         else:
             raise Exception("two date should be entered..")
