@@ -9,11 +9,23 @@ class PersonalFinanceManager:
 
     @classmethod
     def view_all_transactions(cls):
+        """Get all the transactions stored in the personal finance manager.
+
+        Returns:
+            List[Transaction]: List of all the transactions stored in the manager.
+        """
         return cls.__db.get_all_transactions()
 
     @classmethod
     def add_transaction(cls, transaction: Transaction) -> None:
-        """Add a new transaction to the personal finance manager."""
+        """Add a new transaction to the personal finance manager.
+
+        Args:
+            transaction (Transaction): The transaction object to be added.
+
+        Returns:
+            None
+        """
 
         cls.__db.append_transaction(transaction)
 
@@ -21,7 +33,18 @@ class PersonalFinanceManager:
     def view_transactions_between_two_dates(
         cls, start_date: date = None, end_date: date = None
     ) -> None:
-        """View all transactions between two dates."""
+        """View all transactions between two dates.
+
+        Args:
+            start_date (date, optional): The start date of the range. Defaults to None.
+            end_date (date, optional): The end date of the range. Defaults to None.
+
+        Raises:
+            RequiredDateException: If both start_date and end_date are None.
+
+        Returns:
+            None
+        """
         if start_date == None and end_date == None:
             raise RequiredDateException()
 
@@ -37,7 +60,18 @@ class PersonalFinanceManager:
     def view_summary_report_between_two_dates(
         cls, start_date: date = None, end_date: date = None
     ) -> None:
-        """report overall summary between two dates."""
+        """View the summary report of all the transactions between two dates.
+
+        Args:
+            start_date (date, optional): The start date of the range. Defaults to None.
+            end_date (date, optional): The end date of the range. Defaults to None.
+
+        Raises:
+            RequiredDateException: If either start_date or end_date is None.
+
+        Returns:
+            None
+        """
         if start_date != None and end_date != None:  # show all transactions
             start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
             end_date = datetime.strptime(end_date, "%Y-%m-%d").date()

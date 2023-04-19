@@ -1,3 +1,26 @@
+"""
+This module provides a Personal Finance Manager that allows users to add transactions, view transactions
+between two dates, and generate a summary report of transactions between two dates.
+
+The module provides a command-line interface that can be used by running the script.
+
+This module uses the argparse module to parse command-line arguments and the PersonalFinanceManager,
+Transaction, and TransactionType classes from the transaction package.
+
+This module also uses the date_validation and amount_validation functions from the core.util module
+to validate the date and amount arguments.
+
+This module raises InvalidCommandException if an invalid command is provided.
+
+This module requires Python 3.x to run.
+
+Usage:
+    python personal_finance_manager.py add --type TYPE --date DATE --amount AMOUNT --category CATEGORY [--description DESCRIPTION]
+    python personal_finance_manager.py view [--start_date START_DATE] [--end_date END_DATE]
+    python personal_finance_manager.py report [--start_date START_DATE] [--end_date END_DATE]
+
+"""
+
 from transaction.operations import PersonalFinanceManager
 from transaction.models import Transaction, TransactionType
 from core.util import date_validation, amount_validation
@@ -6,7 +29,13 @@ import argparse
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments."""
+    """
+    Parse command-line arguments.
+
+    Returns:
+        argparse.Namespace: Namespace object containing the parsed arguments.
+
+    """
     parser = argparse.ArgumentParser(description="Personal finance manager")
 
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -50,7 +79,13 @@ args = parse_args()
 
 
 def main() -> None:
-    """Main function."""
+    """
+    Main function that handles the command-line arguments and executes the corresponding action.
+
+    Raises:
+        InvalidCommandException: If an invalid command is provided.
+
+    """
     args = parse_args()
     if args.command == "add":
         date_validation(args.date)
