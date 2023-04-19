@@ -113,9 +113,9 @@ class TransactionsFileHandler:
         balance = total_income - total_expence
         return {
             "total_income": total_income,
-            "income_categories": income_categories,
+            "income_categories": income_categories if total_income != 0 else "{}",
             "total_expence": total_expence,
-            "expence_categories": expence_categories,
+            "expence_categories": expence_categories if total_expence != 0 else "{}",
             "balance": balance,
             "transaction_count": len(list(transactions)),
         }

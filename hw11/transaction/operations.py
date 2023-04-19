@@ -72,19 +72,20 @@ class PersonalFinanceManager:
         Returns:
             None
         """
-        if start_date != None and end_date != None:  # show all transactions
+        if start_date != None and end_date != None:
             start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
             end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
             transactions_info = cls.__db.get_summary_report_between_two_dates(
                 start_date, end_date
             )
             print()
-            for key, value in transactions_info.items():
-                print(f"{key:25} {value}")
+            if transactions_info.get("transaction_count"):
+                for key, value in transactions_info.items():
+                    print(f"{key:25} {value}")
 
             not transactions_info.get("transaction_count") and print(
                 "No Transaction added in this range of dates.."
             )
-
+            print()
         else:
             raise RequiredDateException()

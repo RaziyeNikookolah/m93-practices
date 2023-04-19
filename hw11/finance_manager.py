@@ -64,14 +64,22 @@ def parse_args() -> argparse.Namespace:
     view_parser = subparsers.add_parser(
         "view", help="View transactions between two dates"
     )
-    view_parser.add_argument("--start_date", type=str, help="Start date (YYYY-MM-DD)")
-    view_parser.add_argument("--end_date", type=str, help="End date (YYYY-MM-DD)")
+    view_parser.add_argument(
+        "--start_date", type=str, help="Start date (YYYY-MM-DD)", required=True
+    )
+    view_parser.add_argument(
+        "--end_date", type=str, help="End date (YYYY-MM-DD)", required=True
+    )
     # Report transactions subcommand
     report_parser = subparsers.add_parser(
         "report", help="generate a summary report of transactions between two dates"
     )
-    report_parser.add_argument("--start_date", type=str, help="Start date (YYYY-MM-DD)")
-    report_parser.add_argument("--end_date", type=str, help="End date (YYYY-MM-DD)")
+    report_parser.add_argument(
+        "--start_date", type=str, help="Start date (YYYY-MM-DD)", required=True
+    )
+    report_parser.add_argument(
+        "--end_date", type=str, help="End date (YYYY-MM-DD)", required=True
+    )
     return parser.parse_args()
 
 
