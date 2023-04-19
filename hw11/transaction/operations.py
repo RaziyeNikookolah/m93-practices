@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from transaction.models import Transaction, TransactionType
 from core.handlers import TransactionsFileHandler
+from core.exceptions import RequiredDateException
 
 
 class PersonalFinanceManager:
@@ -22,7 +23,7 @@ class PersonalFinanceManager:
     ) -> None:
         """View all transactions between two dates."""
         if start_date == None and end_date == None:
-            raise Exception("Two dates required")
+            raise RequiredDateException()
 
         start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
         end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
@@ -52,4 +53,4 @@ class PersonalFinanceManager:
             )
 
         else:
-            raise Exception("Two date should be entered..")
+            raise RequiredDateException()

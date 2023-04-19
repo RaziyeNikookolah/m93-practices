@@ -1,6 +1,11 @@
 from datetime import datetime
 from enum import Enum
 from decimal import Decimal
+from core.exceptions import (
+    InvalidTypeException,
+    InvalidAmountException,
+    InvalidDateException,
+)
 import re
 
 
@@ -32,8 +37,9 @@ class Transaction:
 
     @type.setter
     def type(self, value: TransactionType):
-        if value in (TransactionType.INCOME, TransactionType.EXPENCE):
-            self._type = value
+        if not value in (TransactionType.INCOME, TransactionType.EXPENCE):
+            raise InvalidTypeException()
+        self._type = value
 
     @property
     def amount(self):
@@ -42,7 +48,7 @@ class Transaction:
     @amount.setter
     def amount(self, value: str):
         if not re.match(r"^\d+(\.\d{1,2})?$", value):
-            raise Exception("Invalid amount form..")
+            raise InvalidAmountException()
         self._amount = Decimal(value)
 
     @property
@@ -54,7 +60,7 @@ class Transaction:
         if not re.match(
             r"^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$", value
         ):
-            raise Exception("Invalid date form..")
+            raise InvalidDateException()
         self._date = datetime.strptime(value, "%Y-%m-%d").date()
 
     def __str__(self) -> str:

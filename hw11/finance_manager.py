@@ -1,6 +1,7 @@
 from transaction.operations import PersonalFinanceManager
 from transaction.models import Transaction, TransactionType
 from core.util import date_validation, amount_validation
+from core.exceptions import InvalidCommandException
 import argparse
 
 
@@ -51,11 +52,7 @@ args = parse_args()
 def main() -> None:
     """Main function."""
     args = parse_args()
-    if (
-        args.command == "add"
-    ):  # TODO rasis error if not ok and make it lowercase for check and all inputes are entered
-        # TODO validation on getting type
-
+    if args.command == "add":
         date_validation(args.date)
         amount_validation(args.amount)
         transaction = Transaction(
@@ -64,19 +61,21 @@ def main() -> None:
         PersonalFinanceManager.add_transaction(transaction)
         print("Transaction added successfully..")
 
-    elif args.command == "view":  # check dates are valedate
+    elif args.command == "view":
         date_validation(args.start_date)
         date_validation(args.end_date)
         PersonalFinanceManager.view_transactions_between_two_dates(
             args.start_date, args.end_date
         )
 
-    elif args.command == "report":  # check dates are valedate
+    elif args.command == "report":
         date_validation(args.start_date)
         date_validation(args.end_date)
         PersonalFinanceManager.view_summary_report_between_two_dates(
             args.start_date, args.end_date
         )
+    else:
+        raise InvalidCommandException()
 
 
 """Run project just from here"""
