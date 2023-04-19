@@ -4,11 +4,10 @@ from core.handlers import TransactionsFileHandler
 
 
 class PersonalFinanceManager:
-
     __db = TransactionsFileHandler("storage/transactions.shelve")
 
     @classmethod
-    def get_all_transaction_from_file(cls):
+    def view_all_transactions(cls):
         return cls.__db.get_all_transactions()
 
     @classmethod
@@ -18,41 +17,39 @@ class PersonalFinanceManager:
         cls.__db.append_transaction(transaction)
 
     @classmethod
-    def show_transactions(cls, start_date: date = None, end_date: date = None) -> None:
+    def view_transactions_between_two_dates(
+        cls, start_date: date = None, end_date: date = None
+    ) -> None:
         """View all transactions between two dates."""
-        if start_date == None and end_date == None:  # show all transactions
-            lst_result = cls.__db.get_all_transactions()
-            print(
-                *lst_result, sep="\n") if lst_result else print("No transaction added")
-        elif end_date == None:  # user enter just start_date => show transactions until now
-            end_date = datetime.now().date()
-            start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-            lst_result = cls.__db.search_transaction_by_date_range(
-                start_date, end_date)
-            print(
-                *lst_result, sep="\n") if lst_result else print("No transaction in these two ranges of dates")
-        else:  # user enter start_date and end_date
-            start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-            end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
-            lst_result = cls.__db.search_transaction_by_date_range(
-                start_date, end_date)
-            print(
-                *lst_result, sep="\n") if lst_result else print("No transaction in these two ranges of dates")
+        if start_date == None and end_date == None:
+            raise Exception("Two dates required")
+
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+
+        transactions = cls.__db.get_transactions_between_two_dates(start_date, end_date)
+
+        not transactions and print("No transaction added in this range of dates")
+        print(*transactions, sep="\n")
 
     @classmethod
-    def report_overal_summary_in_date_range(cls, start_date: date = None, end_date: date = None) -> None:
+    def view_summary_report_between_two_dates(
+        cls, start_date: date = None, end_date: date = None
+    ) -> None:
         """report overall summary between two dates."""
         if start_date != None and end_date != None:  # show all transactions
-            start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-            end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
-            dict_result = cls.__db.summary_report_between_two_dates_(
-                start_date, end_date)
-            if dict_result.get("income_transaction_count") == 0 and dict_result.get("expence_transaction_count") == 0:
-                print("No Transaction added..")
-            else:
-                balance = dict_result["total_income"] - \
-                    dict_result["total_expence"]
-                print(
-                    f"'total_income': {dict_result['total_income']}, 'income_category': {dict_result['income_category']}, 'total_expence': {dict_result['total_expence']}, 'expence_category': {dict_result['expence_category']}, balance : {balance}")
+            start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+            end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+            transactions_info = cls.__db.get_summary_report_between_two_dates(
+                start_date, end_date
+            )
+            print()
+            for key, value in transactions_info.items():
+                print(f"{key:25} {value}")
+
+            not transactions_info.get("transaction_count") and print(
+                "No Transaction added in this range of dates.."
+            )
+
         else:
-            raise Exception("two date should be entered..")
+            raise Exception("Two date should be entered..")
