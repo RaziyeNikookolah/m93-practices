@@ -4,7 +4,7 @@ from decimal import Decimal
 
 
 class TransactionType(Enum):
-    EXPENSE = "Expense"
+    EXPENCE = "Expence"
     INCOME = "Income"
 
 

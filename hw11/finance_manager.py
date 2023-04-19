@@ -13,7 +13,7 @@ def parse_args() -> argparse.Namespace:
     # Add transaction subcommand
     add_parser = subparsers.add_parser("add", help="Add a new transaction")
     add_parser.add_argument("--type", type=TransactionType, choices=list(TransactionType), required=True,
-                            help="Transaction type (income or expense)")
+                            help="Transaction type (income or expence)")
     add_parser.add_argument("--date", type=str, required=True,
                             help="Transaction date (YYYY-MM-DD)")
     add_parser.add_argument("--amount", type=str,
