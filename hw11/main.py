@@ -1,2 +1,3 @@
 if __name__ == "__main__":
     ...
+# in finance_manager.py is start point

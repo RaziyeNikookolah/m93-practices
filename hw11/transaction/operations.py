@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from transaction.models import Transaction, TransactionType
 from core.handlers import TransactionsFileHandler
-from core.exceptions import RequiredDateException
+from core.exceptions import RequiredDateError
 
 
 class PersonalFinanceManager:
@@ -46,7 +46,7 @@ class PersonalFinanceManager:
             None
         """
         if start_date == None and end_date == None:
-            raise RequiredDateException()
+            raise RequiredDateError()
 
         start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
         end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
@@ -88,4 +88,4 @@ class PersonalFinanceManager:
             )
             print()
         else:
-            raise RequiredDateException()
+            raise RequiredDateError()

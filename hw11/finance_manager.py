@@ -24,7 +24,7 @@ Usage:
 from transaction.operations import PersonalFinanceManager
 from transaction.models import Transaction, TransactionType
 from core.util import date_validation, amount_validation
-from core.exceptions import InvalidCommandException
+from core.exceptions import InvalidCommandError
 import argparse
 
 
@@ -96,29 +96,32 @@ def main() -> None:
     """
     args = parse_args()
     if args.command == "add":
-        date_validation(args.date)
-        amount_validation(args.amount)
-        transaction = Transaction(
-            args.type, args.amount, args.date, args.category, args.description
-        )
-        PersonalFinanceManager.add_transaction(transaction)
-        print("Transaction added successfully..")
+        try:
+            transaction = Transaction(
+                args.type, args.amount, args.date, args.category, args.description
+            )
+
+            PersonalFinanceManager.add_transaction(transaction)
+            print("Transaction added successfully..")
+        except Exception as e:
+            print(e)
 
     elif args.command == "view":
-        date_validation(args.start_date)
-        date_validation(args.end_date)
-        PersonalFinanceManager.view_transactions_between_two_dates(
-            args.start_date, args.end_date
-        )
-
+        try:
+            PersonalFinanceManager.view_transactions_between_two_dates(
+                args.start_date, args.end_date
+            )
+        except Exception as e:
+            print(e)
     elif args.command == "report":
-        date_validation(args.start_date)
-        date_validation(args.end_date)
-        PersonalFinanceManager.view_summary_report_between_two_dates(
-            args.start_date, args.end_date
-        )
+        try:
+            PersonalFinanceManager.view_summary_report_between_two_dates(
+                args.start_date, args.end_date
+            )
+        except Exception as e:
+            print(e)
     else:
-        raise InvalidCommandException()
+        raise InvalidCommandError()
 
 
 """Run project just from here"""

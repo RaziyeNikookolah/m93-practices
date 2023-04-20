@@ -61,9 +61,7 @@ class TransactionsFileHandler:
         with shelve.open(self.file_path) as db:
             return list(
                 filter(
-                    lambda trnsc: True
-                    if start_date <= trnsc.date <= end_date
-                    else False,
+                    lambda trnsc: start_date <= trnsc.date <= end_date,
                     list(db.values()),
                 )
             )
@@ -92,14 +90,14 @@ class TransactionsFileHandler:
 
         income_transactions = list(
             filter(
-                lambda t: True if t.type == TransactionType.INCOME else False,
+                lambda t: t.type == TransactionType.INCOME,
                 transactions,
             )
         )
 
         expence_transactions = list(
             filter(
-                lambda t: True if t.type == TransactionType.EXPENCE else False,
+                lambda t: t.type == TransactionType.EXPENCE,
                 transactions,
             )
         )
@@ -107,7 +105,9 @@ class TransactionsFileHandler:
         income_categories = set(map(lambda t: t.category, income_transactions))
         expence_categories = set(map(lambda t: t.category, expence_transactions))
 
-        total_income = reduce(lambda acc, t: acc + t.amount, income_transactions, 0)
+        total_income = reduce(
+            lambda acc, t: acc + t.amount, income_transactions, 0
+        )  # it can be str input as same as output
         total_expence = reduce(lambda acc, t: acc + t.amount, expence_transactions, 0)
 
         balance = total_income - total_expence

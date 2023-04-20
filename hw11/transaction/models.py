@@ -16,12 +16,9 @@ Attributes:
 from datetime import datetime
 from enum import Enum
 from decimal import Decimal
-from core.exceptions import (
-    InvalidTypeException,
-    InvalidAmountException,
-    InvalidDateException,
-)
-import re
+from core.exceptions import InvalidTypeError
+
+from core.util import amount_validation, date_validation
 
 
 class TransactionType(Enum):
@@ -94,7 +91,7 @@ class Transaction:
             InvalidTypeException: If an invalid transaction type is provided.
         """
         if not value in (TransactionType.INCOME, TransactionType.EXPENCE):
-            raise InvalidTypeException()
+            raise InvalidTypeError()
         self._type = value
 
     @property
@@ -118,8 +115,7 @@ class Transaction:
         Raises:
             InvalidAmountException: If an invalid amount is provided.
         """
-        if not re.match(r"^\d+(\.\d{1,2})?$", value):
-            raise InvalidAmountException()
+        amount_validation(value)
         self._amount = Decimal(value)
 
     @property
@@ -144,10 +140,7 @@ class Transaction:
         Returns:
             None
         """
-        if not re.match(
-            r"^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$", value
-        ):
-            raise InvalidDateException()
+        date_validation(value)
         self._date = datetime.strptime(value, "%Y-%m-%d").date()
 
     def __str__(self) -> str:

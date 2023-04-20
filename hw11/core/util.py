@@ -1,5 +1,6 @@
 import re
-from core.exceptions import InvalidDateException, InvalidAmountException
+from core.exceptions import InvalidDateError, InvalidAmountError
+from datetime import datetime
 
 
 def date_validation(input_date: str):
@@ -17,7 +18,10 @@ def date_validation(input_date: str):
     if not re.match(
         r"^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$", input_date
     ):
-        raise InvalidDateException()
+        raise InvalidDateError()
+
+    if datetime.strptime(input_date, "%Y-%m-%d").date() > datetime.date().now():
+        raise InvalidDateError("Date shuold not be in future..")
 
 
 def amount_validation(input_amount: str):
@@ -33,4 +37,4 @@ def amount_validation(input_amount: str):
         None
     """
     if not re.match(r"^\d+(\.\d{1,2})?$", input_amount):
-        raise InvalidAmountException()
+        raise InvalidAmountError()

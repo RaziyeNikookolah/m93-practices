@@ -1,4 +1,9 @@
-class InvalidAmountException(Exception):
+from transaction.models import TransactionType
+
+
+class InvalidAmountError(  # keyword Error is better than Exception for the name
+    Exception
+):  # TODO best practice is to put every exception in file its module
     """Exception raised for errors in the input amount.
 
     Attributes:
@@ -16,7 +21,7 @@ class InvalidAmountException(Exception):
         super().__init__(self.message)
 
 
-class InvalidDateException(Exception):
+class InvalidDateError(Exception):
     """Exception raised for errors in the input date.
 
     Attributes:
@@ -31,7 +36,7 @@ class InvalidDateException(Exception):
         super().__init__(self.message)
 
 
-class RequiredDateException(Exception):
+class RequiredDateError(Exception):
     """Exception raised for errors in the input date.
 
     Attributes:
@@ -46,7 +51,7 @@ class RequiredDateException(Exception):
         super().__init__(self.message)
 
 
-class InvalidTypeException(Exception):
+class InvalidTypeError(Exception):
     """Exception raised for errors in the input type.
 
     Attributes:
@@ -55,13 +60,13 @@ class InvalidTypeException(Exception):
 
     def __init__(
         self,
-        message="Invalid type input, enter (Expence or Income)",
+        message=f"Invalid type input, enter ({TransactionType.EXPENCE} or {TransactionType.INCOME})",  # TODO use Enum value
     ):
         self.message = message
         super().__init__(self.message)
 
 
-class InvalidCommandException(Exception):
+class InvalidCommandError(Exception):
     """Exception raised for errors in the input command.
 
     Attributes:
