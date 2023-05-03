@@ -53,8 +53,14 @@ limit 1;
 select title from film where title not in (
     select title from film 
     join inventory using(film_id) 
-    join rental using (inventory_id)
+    join rental using (inventory_id);
 )
 
 
 #part 7
+
+select first_name,last_name,length(first_name) as fname_len
+from actor 
+join film_actor using (actor_id)
+where fname_len=8;
+
