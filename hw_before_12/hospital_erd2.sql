@@ -1,21 +1,5 @@
-
--- Database: hospital-managment-db
-
-DROP DATABASE IF EXISTS "hospital-managment-db";
-
-CREATE DATABASE "hospital-managment-db"
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.UTF-8'
-    LC_CTYPE = 'en_US.UTF-8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
-
-\connect "hospital-managment-db";
 CREATE TABLE "appointment"(
-    "appointment-id" SERIAL NOT NULL,
+    "appointment-id" SERIAL NOT NULL PRIMARY KEY,
     "appointment-date" DATE NOT NULL,
     "appointment-time" TIME(0) WITHOUT TIME ZONE NOT NULL,
     "doctor-id" INTEGER NOT NULL,
@@ -23,29 +7,23 @@ CREATE TABLE "appointment"(
     "appointment-description" TEXT NULL,
     "next-visit" DATE NULL
 );
-ALTER TABLE
-    "appointment" ADD PRIMARY KEY("appointment-id");
+
 CREATE TABLE "bed"(
-    "bed-id" SERIAL NOT NULL,
+    "bed-id" SERIAL NOT NULL PRIMARY KEY,
     "bed-name" VARCHAR(120) NOT NULL,
     "bed-type" VARCHAR(120) NULL,
     "room-id" INTEGER NOT NULL
 );
-ALTER TABLE
-    "bed" ADD PRIMARY KEY("bed-id");
+
 CREATE TABLE "person"(
-    "person-id" SERIAL NOT NULL,
+    "person-id" SERIAL NOT NULL PRIMARY KEY,
     "person-firstname" VARCHAR(120) NOT NULL,
     "person-lastname" VARCHAR(120) NOT NULL,
     "person-address" VARCHAR(255) NOT NULL,
     "person-insured-code" INTEGER NULL,
-    "person-national-code" SERIAL NOT NULL PRIMARY KEY,
+    "person-national-code" SERIAL NOT NULL UNIQUE,
     "gender" BOOLEAN NOT NULL
 );
-ALTER TABLE
-    "person" ADD PRIMARY KEY("person-id");
-ALTER TABLE
-    "person" ADD CONSTRAINT "person_person_insured_code_unique" UNIQUE("person-insured-code");
 ALTER TABLE
     "person" ADD CONSTRAINT "person_person_national_code_unique" UNIQUE("person-national-code");
 CREATE TABLE "hospital-doctor"(
@@ -55,68 +33,59 @@ CREATE TABLE "hospital-doctor"(
     "finish-cooperation" DATE NULL
 );
 ALTER TABLE
-    "hospital-doctor" ADD PRIMARY KEY("doctor-id");
-ALTER TABLE
-    "hospital-doctor" ADD PRIMARY KEY("hospital-id");
+    "hospital-doctor" ADD PRIMARY KEY("doctor-id","hospital-id");
+
 CREATE TABLE "phone-number"(
-    "phone-number-id" SERIAL NOT NULL,
-    "phone-number" SERIAL NOT NULL PRIMARY KEY,
+    "phone-number-id" SERIAL NOT NULL PRIMARY KEY,
+    "phone-number" INTEGER NOT NULL ,
     "person-id" INTEGER NOT NULL
 );
-ALTER TABLE
-    "phone-number" ADD PRIMARY KEY("phone-number-id");
+
 CREATE TABLE "hospital"(
-    "hospital-id" SERIAL NOT NULL,
+    "hospital-id" SERIAL NOT NULL PRIMARY KEY,
     "hospital-name" VARCHAR(120) NOT NULL,
     "hospital-address" VARCHAR(200) NOT NULL
 );
-ALTER TABLE
-    "hospital" ADD PRIMARY KEY("hospital-id");
+
 CREATE TABLE "medicine"(
-    "medicine-id" SERIAL NOT NULL,
+    "medicine-id" SERIAL NOT NULL PRIMARY KEY,
     "appointment-id" INTEGER NOT NULL,
     "medicine-name" VARCHAR(100) NOT NULL
 );
-ALTER TABLE
-    "medicine" ADD PRIMARY KEY("medicine-id");
+
 CREATE TABLE "patient"(
-    "patient-id" SERIAL NOT NULL,
+    "patient-id" SERIAL NOT NULL PRIMARY KEY,
     "patient-hospitalization-date-start" DATE NOT NULL,
-    "patient-hospitalization-date-start" DATE NOT NULL,
+    "patient-hospitalization-date-finish" DATE NOT NULL,
     "patient-hospitalization-reason" TEXT NOT NULL,
     "patient-hospitalization-bill" DECIMAL(8, 2) NOT NULL,
     "person-id" INTEGER NOT NULL,
     "bed-id" INTEGER NOT NULL
 );
-ALTER TABLE
-    "patient" ADD PRIMARY KEY("patient-id");
-ALTER TABLE
-    "patient" ADD CONSTRAINT "patient_person_id_unique" UNIQUE("person-id");
+
+
 CREATE TABLE "room"(
-    "room-id" SERIAL NOT NULL,
+    "room-id" SERIAL NOT NULL PRIMARY KEY,
     "room-name" VARCHAR(100) NOT NULL,
     "room-type" VARCHAR(100) NOT NULL,
     "hospital-id" INTEGER NOT NULL
 );
-ALTER TABLE
-    "room" ADD PRIMARY KEY("room-id");
+
 CREATE TABLE "bill"(
-    "bill-id" SERIAL NOT NULL,
+    "bill-id" SERIAL NOT NULL PRIMARY KEY,
     "bill-payment-date" DATE NOT NULL,
     "bill-amount" DECIMAL(8, 2) NOT NULL,
     "patient-id" INTEGER NOT NULL,
     "bill-description" TEXT NOT NULL
 );
-ALTER TABLE
-    "bill" ADD PRIMARY KEY("bill-id");
+
 CREATE TABLE "doctor"(
-    "doctor-id" SERIAL NOT NULL,
+    "doctor-id" SERIAL NOT NULL PRIMARY KEY,
     "doctor-specialist" VARCHAR(120) NOT NULL,
     "person-id" INTEGER NOT NULL,
     "doctor-medical-system-code" BIGINT NOT NULL
 );
-ALTER TABLE
-    "doctor" ADD PRIMARY KEY("doctor-id");
+
 ALTER TABLE
     "doctor" ADD CONSTRAINT "doctor_person_id_unique" UNIQUE("person-id");
 ALTER TABLE
@@ -141,3 +110,5 @@ ALTER TABLE
     "doctor" ADD CONSTRAINT "doctor_person_id_foreign" FOREIGN KEY("person-id") REFERENCES "person"("person-id");
 ALTER TABLE
     "doctor" ADD CONSTRAINT "doctor_doctor_id_foreign" FOREIGN KEY("doctor-id") REFERENCES "hospital-doctor"("doctor-id");
+
+alter table patient drop column "patient-hospitalization-bill" ;
