@@ -38,5 +38,16 @@ from actor join film_actor using(actor_id)
 where first_name=last_name
 
 
+#part 5
+
+select first_name,last_name,sum(amount) as sum_amount
+from customer 
+join payment using (customer_id)
+group by sum_amount
+order by sum_amount desc
+limit 1;
+
+
+#part 6
 
 
