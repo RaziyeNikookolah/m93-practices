@@ -64,3 +64,21 @@ from actor
 join film_actor using (actor_id)
 where fname_len=8;
 
+#part 8
+
+select title from film 
+join inventory using(film_id)
+join rental using (inventory_id)
+join payment using (rental_id)
+join staff using (staff_id)
+join store using (store_id)
+where store_id=1 and title not in (
+    select title from film 
+        join inventory using(film_id)
+        join rental using (inventory_id)
+        join payment using (rental_id)
+        join staff using (staff_id)
+        join store using (store_id)
+        where store_id=2
+)
+
