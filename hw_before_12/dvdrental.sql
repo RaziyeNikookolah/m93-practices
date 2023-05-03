@@ -50,4 +50,11 @@ limit 1;
 
 #part 6
 
+select title from film where title not in (
+    select title from film 
+    join inventory using(film_id) 
+    join rental using (inventory_id)
+)
 
+
+#part 7
