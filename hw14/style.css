@@ -8,15 +8,18 @@
 body {
     font-family: sans-serif;
     direction: ltr;
-    padding-left: 8rem;
-    padding-right: 8rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
 }
 
 .container {
     display: flex;
     flex-direction: row;
     background-color: #ffffff;
-    padding: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .container-aboutMe {
@@ -33,7 +36,36 @@ body {
     width: 30%;
     background-color: #2e3dc7;
     box-shadow: 4px 4px 8px #f1f1f1;
-    padding: 3rem;
+    padding: 2rem;
+    align-items: center;
+    gap: 2.4rem;
+    color: #ffffff;
+
+}
+
+.container-info h4,
+h6 {
+    color: rgb(221, 206, 188);
+
+}
+
+.social-media {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.social-media svg {
+    /* background-color: white; */
+    width: 1.3em;
+    height: 1.3em;
+    fill: #f1f1f1;
+}
+
+.container-info img {
+    width: 70%;
+    height: auto;
+    border-radius: 120px;
 }
 
 .aboutMe-header {
@@ -41,6 +73,21 @@ body {
     flex-direction: row;
     justify-content: space-between;
 
+}
+
+.container-info h1 {
+    font-size: 38px;
+}
+
+div .containerInfo-footer {
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    width: 60%;
+    gap: 1.2rem;
+    font-size: 14px;
+    color: rgb(221, 206, 188);
+    font-weight: lighter;
 }
 
 .aboutMe-header h4 {
