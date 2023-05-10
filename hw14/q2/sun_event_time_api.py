@@ -1,5 +1,12 @@
 import requests
-from datetime import datetime
+import datetime
+
+
+def get_exact_time_for_iran(api_time):  # add 2:30 to time recieved
+    time_object = datetime.datetime.strptime(api_time, "%H:%M:%S")
+    delta_time = datetime.timedelta(minutes=30, hours=2)
+    return time_object + delta_time
+
 
 url = "https://api.sunrise-sunset.org/json"
 
@@ -7,17 +14,10 @@ parameters = {"lat": "29.62217", "lng": "52.54688", "date": "today"}
 r = requests.get(url, parameters)
 # print(r.status_code)
 
-
-# time_str = "13::55::26"
-# time_object = datetime.strptime(time_str, "%H::%M::%S").time()
-
 data = r.json()
 
-time_object = datetime.strptime(data["results"]["sunrise"].split()[0], "%H:%M:%S")
-delta_time = datetime.strptime("02:30:00", "%H:%M:%S")
-time_zero = datetime.strptime("00:00:00", "%H:%M:%S")
-sunrise = time_object - time_zero + delta_time
+sunrise_time = get_exact_time_for_iran(data["results"]["sunrise"].split()[0])
+sunset_time = get_exact_time_for_iran(data["results"]["sunset"].split()[0])
 
-# print("sunrise:", data["results"]["sunrise"])
-print("sunrise:", sunrise)
-print("sunset:", data["results"]["sunset"])
+print(f"sunrise:{sunrise_time}")
+print(f"sunset:{sunset_time}")
