@@ -2,7 +2,7 @@ class Inventory:
     def __init__(self):
         self.items = {}
 
-    def add_item(self, name, quantity):
+    def add_item(self, name: str, quantity: int):
         if name in self.items:
             self.items[name] += quantity
         else:
