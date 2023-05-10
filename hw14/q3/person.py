@@ -1,6 +1,11 @@
 import logging
 
-logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler("person.log", mode="a", encoding=None, delay=False)
+formatter = logging.Formatter(f"%(asctime)s %(name)s %(levelname)s %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 class Person:
@@ -8,7 +13,7 @@ class Person:
         self.name = name
         self.family = family
         self.age = age
-        logging.warning("Person created! {} {}".format(self.name, self.family))
+        logging.debug("Person created! {} {}".format(self.name, self.family))
 
     @property
     def age(self):
