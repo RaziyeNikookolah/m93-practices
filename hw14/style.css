@@ -43,6 +43,44 @@ body {
 
 }
 
+.bottom-ranges {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+
+.personal_details {
+    margin-top: 3rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin-top: 1.2rem;
+
+}
+
+li span {
+    font-weight: bolder;
+    font-size: 18px;
+
+}
+
+.personal_details {
+    font-size: 16px;
+
+}
+
+p {
+    margin-top: 2rem;
+    color: rgb(71, 62, 62);
+    line-height: 2rem;
+    font-style: oblique;
+}
+
 .container-info h4,
 h6 {
     color: rgb(221, 206, 188);
