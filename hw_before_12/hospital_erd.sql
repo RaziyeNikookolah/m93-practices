@@ -21,7 +21,7 @@ CREATE TABLE "person"(
     "person-lastname" VARCHAR(120) NOT NULL,
     "person-address" VARCHAR(255) NOT NULL,
     "person-insured-code" INTEGER NULL,
-    "person-national-code" SERIAL NOT NULL UNIQUE,
+    "person-national-code" CHAR(10) NOT NULL UNIQUE,
     "gender" BOOLEAN NOT NULL
 );
 ALTER TABLE
@@ -31,9 +31,12 @@ CREATE TABLE "hospital-doctor"(
     "hospital-id" INTEGER NOT NULL,
     "start-cooperation" DATE NOT NULL,
     "finish-cooperation" DATE NULL
+    UNIQUE TO 
 );
 ALTER TABLE
     "hospital-doctor" ADD PRIMARY KEY("doctor-id","hospital-id");
+
+alter table add column id 
 
 CREATE TABLE "phone-number"(
     "phone-number-id" SERIAL NOT NULL PRIMARY KEY,
@@ -85,6 +88,7 @@ CREATE TABLE "doctor"(
     "person-id" INTEGER NOT NULL,
     "doctor-medical-system-code" BIGINT NOT NULL
 );
+
 
 ALTER TABLE
     "doctor" ADD CONSTRAINT "doctor_person_id_unique" UNIQUE("person-id");

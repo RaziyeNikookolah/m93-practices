@@ -10,13 +10,14 @@ limit 10;
 
 
 #part 2
+
 select CONCAT(first_name,' ',last_name), count(film_id) as film_count
 from customer join rental using(customer_id)
 join inventory using(inventory_id)
 join film using (film_id)
 where first_name.startwith('D')
 group by film_count
-having film_count <> 20 ;
+having film_count between 20 and 25 ;
 
 
 #part3
@@ -33,9 +34,12 @@ limit 5 offset 5
 
 #part 4
 
-select first_name,last_name,actor_id
-from actor join film_actor using(actor_id)
-where first_name=last_name
+select a1.first_name,a1.last_name
+from actor a1 join actor a2
+ 
+on a1.first_name=a2.first_name 
+    and a1.last_name=a2.last_name 
+    and a1.actor_id <> a2.actor_id
 
 
 #part 5
@@ -72,7 +76,8 @@ join rental using (inventory_id)
 join payment using (rental_id)
 join staff using (staff_id)
 join store using (store_id)
-where store_id=1 and title not in (
+where store_id=1 and title 
+    not in (
     select title from film 
         join inventory using(film_id)
         join rental using (inventory_id)
@@ -81,4 +86,7 @@ where store_id=1 and title not in (
         join store using (store_id)
         where store_id=2
 )
+
+SELECT film_id from inventory
+WHERE store_id=1 and film_id not in (SELECT film_id from inventory WHERE store_id=2)
 
