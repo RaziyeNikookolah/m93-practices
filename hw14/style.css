@@ -1,0 +1,64 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: 0px;
+
+}
+
+body {
+    font-family: sans-serif;
+    direction: ltr;
+    padding-left: 8rem;
+    padding-right: 8rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    padding: 2rem;
+}
+
+.container-aboutMe {
+    width: 70%;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 8px #f1f1f1;
+    padding: 3rem;
+
+}
+
+.container-info {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: #2e3dc7;
+    box-shadow: 4px 4px 8px #f1f1f1;
+    padding: 3rem;
+}
+
+.aboutMe-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.aboutMe-header h4 {
+    display: inline-block;
+    color: #c51d7a;
+    font-weight: bold;
+}
+
+.aboutMe-header button {
+    background-color: #2e3dc7;
+    padding: 0%;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 4px;
+    height: 1.5rem;
+    width: 7rem;
+}
