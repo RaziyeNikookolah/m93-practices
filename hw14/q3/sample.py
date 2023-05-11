@@ -5,10 +5,8 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler("sample.log", mode="a", encoding=None, delay=False)
 formatter = logging.Formatter(
-    f"%(asctime)s %(name)s %(levelname)s %(msecs)03d %(message)s"
+    "%(asctime)s %(name)-10s %(levelname)s %(msecs)03d %(message)s"
 )
-
-# format='{asctime}.{msecs:0<3.0f} {name} {threadName} {levelname}: {message}'
 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
@@ -17,7 +15,7 @@ logger.addHandler(handler)
 rootLogger = logging.getLogger()
 rootLogger.setLevel(logging.ERROR)
 consoleHandler = logging.StreamHandler()
-logFormatter = logging.Formatter(f"%(asctime)s %(levelname)s %(message)s")
+logFormatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
 consoleHandler.setFormatter(logFormatter)
 rootLogger.addHandler(consoleHandler)
 

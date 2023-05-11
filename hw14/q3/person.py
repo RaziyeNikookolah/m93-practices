@@ -3,8 +3,8 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler("person.log", mode="a", encoding=None, delay=False)
-formatter = logging.Formatter(f"%(asctime)s %(name)s %(levelname)s %(message)s")
-handler.setFormatter(formatter)
+formatter = logging.Formatter("%(asctime)s %(name)s %(levelname)s %(message)s")
+handler.setFormatter(formatter)  # handler can have set level
 logger.addHandler(handler)
 
 

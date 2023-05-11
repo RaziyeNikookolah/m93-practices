@@ -5,6 +5,7 @@ invtry = Inventory()
 i = 0
 
 
+# it should be a class named testInventory obj should be in feacsture , test ha mostaghel bashan
 @pytest.mark.parametrize(
     "name,quantity",
     [
@@ -17,7 +18,7 @@ i = 0
         ("dastkesh", 10),
     ],
 )
-def test_add_item(name, quantity):
+def test_add_item(name, quantity):  # mohtava test konam
     global i
     i += 1
     invtry.add_item(name, quantity)
@@ -30,10 +31,9 @@ def test_remove_item():
 
     with pytest.raises(KeyError):
         invtry.remove_item("egg", 3)
-        print("egg does not exist..")
     with pytest.raises(ValueError):
         invtry.remove_item("maye_dast", 63)
-        print("quantity is less than 63")
+        # print("quantity is less than 63")
 
 
 # def test_remove_item():
@@ -50,7 +50,7 @@ def test_remove_item():
 
 def test_get_item_quantity():
     assert invtry.get_item_quantity("roghan") == 20
-    assert invtry.get_item_quantity("kolah") == 0
+    assert invtry.get_item_quantity("kolah") == 2
 
 
 # def test_get_item_quantity_2():

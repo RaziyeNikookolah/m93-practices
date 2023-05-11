@@ -5,23 +5,23 @@ class Rectangle:
 
     @property
     def length(self):
-        return self.length
+        return self._length
 
     @length.setter
     def length(self, value):
         if value < 0:
             self.invalid_dimensions()
-        self.length = value
+        self._length = value
 
     @property
     def width(self):
-        return self.width
+        return self._width
 
     @width.setter
     def width(self, value):
         if value < 0:
             self.invalid_dimensions()
-        self.width = value
+        self._width = value
 
     def perimeter(self):
         return self.length * 2 + self.width * 2
@@ -30,4 +30,4 @@ class Rectangle:
         return self.length * self.width
 
     def invalid_dimensions(self):
-        raise ValueError
+        raise ValueError("Dimensions must be positive")
