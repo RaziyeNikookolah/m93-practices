@@ -43,10 +43,37 @@ body {
 
 }
 
+input[type=range] {
+
+    accent-color: #c51d7a;
+    width: 14rem;
+    height: 1rem;
+    cursor: pointer;
+
+}
+
+.flex-range-lable {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: small;
+    color: rgb(71, 62, 62);
+
+}
+
+.flex-range {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-range span {
+    color: rgb(143, 131, 131);
+}
+
 .bottom-ranges {
     display: flex;
     flex-direction: row;
-    margin-top: 2rem;
+    margin-top: 3rem;
     justify-content: space-between;
 }
 
@@ -65,12 +92,13 @@ li {
 
 li span {
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 16px;
 
 }
 
 .personal_details {
-    font-size: 16px;
+    font-size: 14px;
+    color: rgb(71, 62, 62);
 
 }
 
@@ -144,6 +172,25 @@ div .containerInfo-footer {
     display: inline-block;
     font-size: 12px;
     border-radius: 4px;
-    height: 1.5rem;
-    width: 7rem;
+    height: 1.9rem;
+    width: 8.8rem;
+    align-self: baseline;
+
+}
+
+a {
+    text-decoration: none;
+    color: rgb(221, 206, 188);
+}
+
+button:hover,
+button:focus {
+    background-color: #c2c7c7;
+    border-color: #7aa8b7;
+}
+
+button svg {
+    width: 1.3em;
+    height: 1.3em;
+
 }
