@@ -6,7 +6,9 @@ def get_local_time(api_time):  # add 3:30 to time
     time_object = datetime.datetime.strptime(api_time, "%I:%M:%S %p")
     delta_time = datetime.timedelta(minutes=30, hours=3)
     return (time_object + delta_time).time()
-
+#date time can get timezone and 
+# beautifull soup4 y import bs4 is usfull
+#api of github 
 
 url = "https://api.sunrise-sunset.org/json"
 parameters = {
