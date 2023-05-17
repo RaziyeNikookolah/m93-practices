@@ -2,18 +2,23 @@ import builtins
 
 
 class Indenter:
+    INDENT_SPACES = "    "
+
     def __init__(self) -> None:
         self.output = ""
 
     def __enter__(self):
-        self.output += "    "  # it just determine the print position
+        self.output += (
+            self.__class__.INDENT_SPACES
+        )  # it just determine the print position for enterance text
         # print("entrance...")
         return self  # its very important to return self since we can use other methode in the class
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         # print("existance...")
-
-        self.output = self.output[:-4]  # it just determine the print position
+        self.output = self.output[
+            : -len(self.__class__.INDENT_SPACES)
+        ]  # it just determine the print position for other texts
 
     def print(self, *args, **kwargs):
         # builtins.print("printing")
