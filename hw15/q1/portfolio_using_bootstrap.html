@@ -7,6 +7,10 @@
     <title>Responsive Bootstrap Layout</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        input[type=range] {
+            accent-color: rgb(209, 75, 98);
+        }
+
         .custom-pink {
             color: rgb(209, 75, 98);
         }
@@ -104,6 +108,24 @@
                             et aliquet arcu egestas. Mauris ullamcorper ultrices arcu, id efficitur quam consectetur
                             nec.
                         </p>
+                    </div>
+                </div>
+                <div class="row my-4 px-5">
+                    <ul class="list-unstyled ">
+                        <li> <span class="font-weight-bold">Birthday :</span> Agoust 14, 1982 </li>
+                        <li> <span class="font-weight-bold">Location :</span> Central Main Rd, Australia</li>
+                        <li> <span class="font-weight-bold">Email :</span> contact@gmail.com</li>
+                        <li> <span class="font-weight-bold">Phone :</span> +111 2222-1111</li>
+                    </ul>
+                </div>
+                <div class="row px-5">
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <div class=""><label for="front">Android/Flutter</label><span>70%</span></div>
+                        <input type="range" id="front" name="front" min="0" max="100" value="70">
+                    </div>
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <div class=""><label for="back">Python</label><span>20%</span></div>
+                        <input type="range" id="back" name="back" min="0" max="100" value="20">
                     </div>
                 </div>
             </div>
