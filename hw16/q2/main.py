@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException, Request, status
+from fastapi import FastAPI, HTTPException, Request, status, Form
+from fastapi.responses import RedirectResponse
+
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
@@ -84,11 +86,41 @@ def read_persons(request: Request):
     )
 
 
-# @app.post("/home/edit/{id}}", response_class=HTMLResponse)
-# def read_persons(id, request: Request):
-#     return template.TemplateResponse(
-#         "index.html", {"request": request, "persons": person_list}
-#     )
+@app.post("/update/{id}}", response_class=HTMLResponse)
+def update(
+    request: Request,
+    id: int,
+    name: str = Form(...),
+    lastname: str = Form(...),
+    email: str = Form(...),
+    phone_number: str = Form(...),
+):
+    # Find the person to update
+    person = next((p for p in persons if p["id"] == id), None)
+    if person:
+        # Update the person's data
+        person["first_name"] = name
+        person["last_name"] = lastname
+        person["email"] = email
+        person["phone_number"] = phone_number
+        return RedirectResponse("/home")
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Person not found"
+        )
+
+
+@app.get("/edit/{id}", response_class=HTMLResponse)
+async def edit(request: Request, id: int):
+    person = next((p for p in persons if p["id"] == id), None)
+    if person:
+        return template.TemplateResponse(
+            "edit.html", {"request": request, "person": person}
+        )
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Person not found"
+        )
 
 
 # The Form(...) annotation indicates that these parameters should be extracted from the form data.
