@@ -1,18 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from functools import reduce
-from typing import Optional
+from typing import List, Optional
+from pydantic import BaseModel
 
 app = FastAPI()
 i = 5
 operations = [
     {
         "id": 1,
-        "numbers": [
-            1,
-            2,
-            3,
-            4,
-        ],
+        "numbers": [1, 2, 3, 4],
         "operation_type": "add",
         "result": 10,
     },
@@ -32,39 +28,51 @@ operations = [
 ]
 
 
+class AddRequest(BaseModel):
+    numbers: List[int]
+
+
+class SubtractRequest(BaseModel):
+    minuend: int
+    subtrahend: int
+
+
+class MultiplyRequest(BaseModel):
+    factors: List[int]
+
+
+class DivideRequest(BaseModel):
+    dividend: int
+    divisor: int
+
+
 @app.post("/calculate/add")
-def add(numbers: dict):
+def add(request: AddRequest):
     global i
-    result = sum(numbers["numbers"])
+    global operations
+    result = sum(request.numbers)
     operations.append(
         {
             "id": i,
-            "numbers": numbers["numbers"],
-            "operation_type": "add",
-            "result": result,
-        }
-    )
-    print(
-        {
-            "id": i,
-            "numbers": numbers["numbers"],
+            "numbers": request.numbers,
             "operation_type": "add",
             "result": result,
         }
     )
     i += 1
+
     return result
 
 
 @app.post("/calculate/subtract")
-def subtract(numbers: dict):
+def subtract(request: SubtractRequest):
     global i
-
-    result = numbers["minuend"] - numbers["subtrahend"]
+    global operations
+    result = request.minuend - request.subtrahend
     operations.append(
         {
             "id": i,
-            "numbers": numbers,
+            "numbers": {"minuend": request.minuend, "subtrahend": request.subtrahend},
             "operation_type": "subtract",
             "result": result,
         }
@@ -74,33 +82,34 @@ def subtract(numbers: dict):
 
 
 @app.post("/calculate/multiply")
-def multiply(numbers: dict):
+def multiply(request: MultiplyRequest):
     global i
-
-    result = reduce(lambda x, y: x * y, numbers["factors"])
+    global operatins
+    result = reduce(lambda x, y: x * y, request.factors)
     operations.append(
         {
             "id": i,
-            "numbers": numbers["factors"],
+            "numbers": request.factors,
             "operation_type": "multiply",
             "result": result,
         }
     )
     i += 1
+    print(operations)
     return result
 
 
 @app.post("/calculate/divide")
-def divide(numbers: dict):
+def divide(request: DivideRequest):
     global i
-
-    if numbers["divisor"] == 0:
+    global operations
+    if request.divisor == 0:
         raise HTTPException(status_code=400, detail="Divisor cannot be zero")
-    result = numbers["dividend"] / numbers["divisor"]
+    result = request.dividend / request.divisor
     operations.append(
         {
             "id": i,
-            "numbers": numbers,
+            "numbers": {"dividend": request.dividend, "divisor": request.divisor},
             "operation_type": "divide",
             "result": result,
         }
