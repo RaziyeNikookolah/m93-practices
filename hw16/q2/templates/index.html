@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+
+    <div class="col-9">
+       
+        <br><br>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Firstame</th>
+                    <th>Lastname</th>
+                    <th>Email address</th>
+                    <th width="200">Phone number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in persons %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.first_name }}</td>
+                        <td>{{ p.last_name }}</td>
+                        <td>{{ p.email }}</td>
+                        <td>{{ p.phone_number }}</td>
+                        <td>
+                            <a href="edit/{{ p.id }}" class="btn btn-success">Edit</a> | <a href="delete/{{ p.id }}" class="btn btn-danger">Delete</a>  
+                        </td>
+                    </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
+    </div>
+
+ 
+{% endblock content %}
