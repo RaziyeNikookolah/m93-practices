@@ -2,7 +2,7 @@ import builtins
 
 
 class Indenter:
-    INDENT_SPACES = "    "
+    INDENT_SPACES = 4 * " "
 
     def __init__(self) -> None:
         self.output = ""
@@ -22,7 +22,9 @@ class Indenter:
 
     def print(self, *args, **kwargs):
         # builtins.print("printing")
-        return builtins.print(self.output, *args, **kwargs)
+        return builtins.print(
+            self.output[: -len(self.__class__.INDENT_SPACES)], *args, **kwargs
+        )
 
 
 with Indenter() as indent:
@@ -32,4 +34,4 @@ with Indenter() as indent:
         with indent:
             indent.print("Show me the code...")
     indent.print("Torvalds")
-    indent.print("Torvalds")  # added by me for test
+    # indent.print("Torvalds")  # added by me for test

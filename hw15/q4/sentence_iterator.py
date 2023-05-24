@@ -3,6 +3,7 @@ from time import time, sleep
 
 
 class SentenceIterator:
+    # it was 60 in question i make it 5 to test it sooner
     NEXT_CALL_TIME = 5
 
     def __init__(self, sentence):

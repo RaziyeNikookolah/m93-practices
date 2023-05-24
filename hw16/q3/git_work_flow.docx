@@ -1,0 +1,38 @@
+﻿Git workflow refers to a set of guidelines and practices that developers follow when using Git, a distributed version control system.
+ It defines the steps and processes involved in managing and collaborating on a project using Git. 
+While there are various Git workflows, I'll explain the commonly used "feature branch workflow" as an example.
+
+The feature branch workflow typically involves the following steps:
+
+1)Create a branch: For each new feature or task, a developer creates a new branch in the Git repository. 
+This branch acts as a separate workspace to work on that particular feature.
+
+2)Checkout the branch: The developer switches to the newly created branch, making it the active workspace. 
+They can now start making changes and adding code related to the feature they are working on.
+
+3)Commit changes: As the developer makes changes to the codebase, they periodically commit those changes to the branch. 
+Each commit represents a snapshot of the code at a specific point in time, allowing for easy tracking and collaboration.
+
+4)Push the branch: Once the developer has made significant progress or completed their feature, they push the branch to the remote repository. 
+This step makes the branch accessible to other team members for review or integration.
+
+5)Pull request (PR): After pushing the branch, the developer creates a pull request, which is 
+a request to merge their branch into the main codebase (often the "master" or "main" branch). 
+The pull request includes details about the changes made, allowing others to review the code and provide feedback.
+
+6)Code review: Other team members review the code changes in the pull request, 
+providing feedback, suggesting improvements, and ensuring the changes align with the project's standards.
+
+7)Merge the branch: If the code review is successful, the branch is merged into 
+the main branch, incorporating the new feature or changes into the codebase. At this point, the feature branch has served its purpose and can be deleted.
+
+8)Pull and update: After the merge, team members who are working on the project pull 
+the latest changes from the main branch to update their local repositories. This ensures that everyone has the most up-to-date codebase.
+
+This workflow promotes collaboration, allows for independent work on different features, 
+and maintains a clear history of changes. However, it's important to note that Git workflows can 
+vary based on the specific needs and preferences of a development team. Different workflows like Gitflow, GitHub flow, 
+or GitLab flow may have additional or slightly different steps to suit different project requirements.
+
+
+https://sokanacademy.com/blog/4-%DA%AF%D8%B1%D8%AF%D8%B4%DA%A9%D8%A7%D8%B1-%D8%AF%D8%B1-%DA%AF%DB%8C%D8%AA
