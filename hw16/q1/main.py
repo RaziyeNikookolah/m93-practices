@@ -134,7 +134,7 @@ def operation_history(limit: Optional[int] = None, operator: Optional[str] = Non
         )
         return output[-limit:]
     elif not operator:
-        return operations[:limit]
+        return operations[-limit:]
     else:
         output = list(
             filter(
