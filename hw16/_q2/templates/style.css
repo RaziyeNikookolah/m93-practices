@@ -1,5 +1,0 @@
-.form-control::placeholder {
-    text-align: right !important;
-    direction: rtl !important;
-    unicode-bidi: bidi-override;
-}
