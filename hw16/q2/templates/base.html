@@ -6,26 +6,42 @@
   <title>Fast api CRUD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css" />
+        <!-- <link rel="stylesheet" href="style.css" /> -->
+        <style>
+          .hidden{
+          display:none ;}
+
+          </style>
+        
+
 </head>
 <body>
-  <h5 >FastAPI CRUD (Create, Read, Update and Delete) with sqlalchemy Jinja2 Template</h5>
-  <div class="container row mt-5">
-    <div class="col-3">
-    {% block right_content %}
+  <h5 class="mt-5 mx-5">FastAPI CRUD </h5>
+  <div class="container row mt-5 mx-5">
+  
+    {% block content %}
          
-    {% endblock right_content %}
-    </div>
-    <div class="col-9">
 
-    {% block left_content %}
          
-    {% endblock left_content %}
+    {% endblock content %}
 
-   </div> 
-</div>
-      <script src="script.js">
+
+  </div>
+
+    <script src="script.js">
     
+    </script>
+    <script>
+      const editFormContainer = document.getElementById("edit-form-container");
+      const addFormContainer = document.getElementById("add-form-container");
+      const editLink = document.getElementById("edit-a");
+
+      editLink.addEventListener("click", (event) =>  {
+        event.preventDefault();
+        console.log(event);
+        editFormContainer.classList.remove("hidden");
+        addFormContainer.classList.add("hidden");
+      });
     </script>
 </body>
 </html>

@@ -1,12 +1,10 @@
-const editForm=document.getElementById("edit_form")
-const add_form=document.getElementById("add_form")
-const edit_link=document.getElementById("edit_a")
+const editFormContainer = document.getElementById("edit-form-container");
+const addFormContainer = document.getElementById("add-form-container");
+const editLink = document.getElementById("edit-a");
 
-edit_link.addEventListener('submit', event => {
+editLink.addEventListener("click", (event) => {
   event.preventDefault();
   console.log(event);
-    edit_form.classList.remove('hidden');
-    add_form.classList.add('hidden');})
-
-
-    
+  editFormContainer.classList.remove("hidden");
+  addFormContainer.classList.add("hidden");
+});

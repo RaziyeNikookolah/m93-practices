@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
-{% block right_content %}
+{% block content %}
 
 
-      <form action="/update/{{person.id}}" method="post" id="edit_form"> 
-        <h6 class="mb-3  ">حساب کاربری</h6>
+<div class="col-3 ">
+  <div class="hidden" id="edit-form-container">
 
-        <div class="form-floating mb-3 mt-5" id="signUp-form">
+    <form action="/update/{{person.id}}" method="post" id="edit-form"> 
+        <h6 class="mb-1  ">حساب کاربری</h6>
+
+      <div class="form-floating mb-3 mt-5" id="signUp-form">
         <input type="text" class="form-control" placeholder="نام" name="input-name" id="input-name" value="{{person.first_name}}"/>
         <label for="input-name">نام</label>
       </div>
@@ -25,70 +28,75 @@
 
       </div>
       <div>
-        <button type="submit"  class="btn btn-primary w-100"id="btn-register">به روز رسانی</button>
-      </div>
-       </form>
+         <a id="apdate-a" href="/update/{{ id }}" class="btn btn-success">به روزرسانی</a>
 
-      <form action="" id="add_form"> 
-        <h6 class="mb-3  ">حساب کاربری</h6>
+      </div>
+  
+    </form>
+
+  </div>
+
+  <div class="" id="add-form-container" >
+      <form action="" id="add-form"> 
+          <h6 class="mb-3  ">حساب کاربری</h6>
 
         <div class="form-floating mb-3 mt-5" id="signUp-form">
-        <input type="text" class="form-control" placeholder="نام" name="input-name" id="input-name" />
-        <label for="input-name">نام</label>
-      </div>
-      <div class="form-floating mb-3" >
-        <input type="text" class="form-control" placeholder="نام خانوادگی" name="input-lastname" id="input-lastname" />
-        <label for="input-lastname">نام خانوادگی</label>
+          <input type="text" class="form-control" placeholder="نام" name="input-name" id="input-name" />
+          <label for="input-name">نام</label>
+        </div>
+        <div class="form-floating mb-3" >
+          <input type="text" class="form-control" placeholder="نام خانوادگی" name="input-lastname" id="input-lastname" />
+          <label for="input-lastname">نام خانوادگی</label>
 
-      </div>
-      <div class="form-floating mb-3" >
-        <input type="email"class="form-control" placeholder="اینیل" name="input-email" id="input-email" />
-        <label for="input-email">ایمیل</label>
+        </div>
+        <div class="form-floating mb-3" >
+          <input type="email"class="form-control" placeholder="اینیل" name="input-email" id="input-email" />
+          <label for="input-email">ایمیل</label>
 
-      </div>
-      <div class="form-floating mb-3" >
-        <input type="tel" class="form-control" placeholder="شماره تماس" name="input-phon-number" id="input-phon-number" />
-        <label for="input-phon-number">شماره تلفن</label>
+        </div>
+        <div class="form-floating mb-3" >
+          <input type="tel" class="form-control" placeholder="شماره تماس" name="input-phon-number" id="input-phon-number" />
+          <label for="input-phon-number">شماره تلفن</label>
 
-      </div>
-      <div>
-        <button type="submit"  class="btn btn-primary w-100"id="btn-register">عضویت</button>
-      </div>
-       </form>
-{% endblock right_content %} 
-{% block left_content %}
+        </div>
+        <div>
+          
 
-    <div class="col-9">
-       
-        <br><br>
-        <table class="table table-bordered table-striped">
-            <thead>
+           <a id="add-a" href="/add" class="btn btn-success w-100">عضویت</a>
+        </div>
+      </form>
+  </div>
+
+</div>
+<div class="col-9">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>ایمیل</th>
+                <th width="200">شماره تلفن</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in persons %}
                 <tr>
-                    <th>ID</th>
-                    <th>Firstame</th>
-                    <th>Lastname</th>
-                    <th>Email address</th>
-                    <th width="200">Phone number</th>
-                    <th>Actions</th>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.first_name }}</td>
+                    <td>{{ p.last_name }}</td>
+                    <td>{{ p.email }}</td>
+                    <td>{{ p.phone_number }}</td>
+                    <td>
+                        <a id="edit-a" href="/edit/{{ p.id }}" class="btn btn-success">ویرایش</a> 
+                        <a href="/delete/{{ p.id }}" class="btn btn-danger">حذف</a>  
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                {% for p in persons %}
-                    <tr>
-                        <td>{{ p.id }}</td>
-                        <td>{{ p.first_name }}</td>
-                        <td>{{ p.last_name }}</td>
-                        <td>{{ p.email }}</td>
-                        <td>{{ p.phone_number }}</td>
-                        <td>
-                            <a id="edit_a" href="edit/{{ p.id }}" class="btn btn-success">Edit</a> 
-                            <a href="delete/{{ p.id }}" class="btn btn-danger">Delete</a>  
-                        </td>
-                    </tr>
-                {% endfor %}    
-            </tbody>
-        </table>
-    </div>
+            {% endfor %}    
+        </tbody>
+    </table>
+</div>
 
  
-{% endblock left_content %}
+{% endblock content %}
