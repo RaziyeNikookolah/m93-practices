@@ -123,6 +123,8 @@ def operation_history(limit: Optional[int] = None, operator: Optional[str] = Non
     valid_operators = ("add", "subtract", "multiply", "divide")
     if operator and operator not in valid_operators:
         raise HTTPException(status_code=400, detail="Invalid operator")
+    if limit and limit <= 0:
+        raise HTTPException(status_code=400, detail="Invalid limit")
     if operator and limit:
         output = list(
             filter(
@@ -134,7 +136,13 @@ def operation_history(limit: Optional[int] = None, operator: Optional[str] = Non
     elif not operator:
         return operations[:limit]
     else:
-        return operations
+        output = list(
+            filter(
+                lambda op: op["operation_type"] == operator,
+                operations,
+            )
+        )
+        return output
 
 
 @app.get("/calculate/history/{history_id}")
