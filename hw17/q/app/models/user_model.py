@@ -1,27 +1,10 @@
 from pydantic import Field, BaseModel, EmailStr
-
-
-class PostSchema(BaseModel):
-    id: int = Field(default=None)
-    title: str = Field(default=None)
-    content: str = Field(default=None)
-    author: str = Field(default=None)
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "post_schema": {
-                    "title": "Hiro",
-                    "content": "Hiro description",
-                    "author": "raziye",
-                }
-            }
-        }
+from enum import Enum
 
 
 class UserSchema(BaseModel):
     id: int = Field(default=None)  # it can be ... in paranthesese
-    username: int = Field(default=None)
+    username: str = Field(default=None)
     email: EmailStr = Field(default=None)
     password: str = Field(default=None)
 
@@ -35,6 +18,11 @@ class UserSchema(BaseModel):
                 }
             }
         }
+
+
+class UserRole(Enum):
+    REGULAR = "regular"
+    ADMIN = "admin"
 
 
 class UserLoginSchema(BaseModel):
