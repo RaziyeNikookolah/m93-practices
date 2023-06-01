@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException, status, Body
+from fastapi import APIRouter, HTTPException, status, Body, Depends
 from app.models.user_model import UserSchema, UserLoginSchema, UserRole
 from app.auth.jwt_handler import signJWT
+from ..auth.jwt_bearer import jwtBearer
 
 # from passlib.context import CryptContext
 from app.data_storage import users
@@ -41,7 +42,7 @@ def get_user_by_username(username):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
 
-@router.put("/admin/{username}")
+@router.put("/admin/{username}", dependencies=[Depends(jwtBearer())])
 def make_user_admin(username: str, user_new: UserSchema):
     user_old = users.get(username)
     if not user_old:
