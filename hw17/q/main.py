@@ -17,3 +17,9 @@ def home():
 
 if __name__ == "__main__":
     uvicorn.run(app="main:app", port=8000, reload=True, host="127.0.0.1")
+
+
+# print("Adding an Item:")
+# import requests
+
+# print(requests.get("").json())
