@@ -41,7 +41,7 @@ def add_post(post: PostSchema):
         return {"message": "post added"}
 
 
-@router.put("/{title}")
+@router.put("/{title}", dependencies=[Depends(jwtBearer())])
 def update_post(title: str, post_new: PostSchema):
     post_old = posts.get(title)
 
@@ -55,7 +55,7 @@ def update_post(title: str, post_new: PostSchema):
     return {"message": "post updated"}
 
 
-@router.delete("/{title}")
+@router.delete("/{title}", dependencies=[Depends(jwtBearer())])
 def delete_post(title: str):
     post = posts.get(title)
     if not post:
