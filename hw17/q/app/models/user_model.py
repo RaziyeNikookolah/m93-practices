@@ -2,10 +2,16 @@ from pydantic import Field, BaseModel, EmailStr
 from enum import Enum
 
 
+class UserRole(Enum):
+    REGULAR = "regular"
+    ADMIN = "admin"
+
+
 class UserSchema(BaseModel):
     username: str = Field(default=None)
     email: EmailStr = Field(default=None)
     password: str = Field(default=None)
+    role: UserRole = UserRole.REGULAR
 
     # class Config:
     #     schema_extra = {
@@ -17,11 +23,6 @@ class UserSchema(BaseModel):
     #             }
     #         }
     #     }
-
-
-class UserRole(Enum):
-    REGULAR = "regular"
-    ADMIN = "admin"
 
 
 class UserLoginSchema(BaseModel):

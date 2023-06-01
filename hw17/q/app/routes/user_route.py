@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, status, Body
-from app.models.user_model import UserSchema, UserLoginSchema
+from app.models.user_model import UserSchema, UserLoginSchema, UserRole
 from app.auth.jwt_handler import signJWT
 
 # from passlib.context import CryptContext
@@ -39,6 +39,17 @@ def get_user_by_username(username):
     if user:
         return {"user": user}
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+
+@router.put("/admin/{username}")
+def make_user_admin(username: str, user_new: UserSchema):
+    user_old = users.get(username)
+    if not user_old:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    else:
+        user_new.role = UserRole.ADMIN
+        users[user_new.username] = user_new
+        return {"message": "User set as an admin"}
 
 
 @router.put("/{username}")
