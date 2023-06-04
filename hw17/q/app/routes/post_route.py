@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, Header
 from ..models.post_model import PostSchema
 from ..auth.jwt_bearer import jwtBearer
 from ..data_storage import posts
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 # router for post endpoints
 router = APIRouter(prefix="/posts", tags=["post"])
@@ -20,11 +20,15 @@ def get_post_by_title(title: str):
     post = posts.get(title)
 
     if not post:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, message="not found"
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="not found")
     else:
         return {"post": post}
+
+
+@router.post("/getHeader")
+def get_header(custom_header: Optional[List[str]] = Header(None)):
+    print(custom_header)
+    return {"header": custom_header}
 
 
 # post add post

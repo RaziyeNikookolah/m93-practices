@@ -42,7 +42,9 @@ def get_user_by_username(username):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
 
-@router.put("/admin/{username}", dependencies=[Depends(jwtBearer())])
+@router.put(
+    "/admin/{username}", dependencies=[Depends(jwtBearer())]
+)  # it can be list of some depends it should be collable
 def make_user_admin(username: str, user_new: UserSchema):
     user_old = users.get(username)
     if not user_old:

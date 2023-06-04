@@ -3,7 +3,7 @@ import time
 import jwt  # For incoding and decoding jwt
 from typing import Dict
 from decouple import (
-    config,
+    config,  # for .env
 )  # Decouple helps you to organize your settings so that you can change parameters without having to redeploy your app and store parameters in ini or .env files
 
 
@@ -26,6 +26,7 @@ def signJWT(userID: str) -> str:
 def decodeJwT(token: str):
     try:
         decode_token = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
+
         return decode_token if decode_token["expires"] > time.time() else None
     except:
         return {"message": "Error in decoding"}
