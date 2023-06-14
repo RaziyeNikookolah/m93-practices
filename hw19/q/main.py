@@ -5,6 +5,7 @@ from enum import Enum
 from datetime import datetime
 from typing import Annotated
 from pymongo import MongoClient
+import pymongo
 from bson.objectid import ObjectId
 
 
@@ -12,6 +13,42 @@ client = MongoClient("mongodb://localhost:27017/")
 db = client['transaction']
 
 transaction_collection = db['transaction']
+# transaction_collection.create_index('merchantId', unique=True)
+# transaction_collection.create_index(
+#     [('merchantId', pymongo.TEXT)], name='user_id_index', default_language='english')
+
+collections_in_db = db.list_collection_names()
+
+# Check if the collection exists in the list of collection names
+if not 'transaction_user_day_collection' in collections_in_db:
+    pipeline = [
+        {
+            "$group": {
+                "_id": {
+                    "merchantId": "$merchantId",
+                    "createdAt": {
+                        "$dateToString": {
+                            "format": "%Y-%m-%d",
+                            "date": "$createdAt"
+                        }
+                    }
+                },
+                "totalAmount": {"$sum": "$amount"},
+                "count": {"$sum": 1}
+            }
+        },
+        {
+            "$sort": {
+                "_id.createdAt": 1
+            }
+        }
+    ]
+
+    # Execute the pipeline and print the results
+    result = db.transaction.aggregate(pipeline)
+
+    transaction_collection = db['transaction_user_day_collection']
+    transaction_collection.insert_many(result)
 
 
 class TimePeriod(str, Enum):
@@ -46,10 +83,12 @@ def get_by_id(id: str):
 
 
 def get_by_merchant_id(id: str):
-    trnsc = transaction_collection.find_one({"merchantId": ObjectId(id)})
-    trnsc["_id"] = str(trnsc["_id"])
-    trnsc["merchantId"] = str(trnsc["merchantId"])
-    return trnsc
+    trnscs = list(transaction_collection.find({"merchantId": ObjectId(id)}))
+    for trnsc in trnscs:
+        trnsc["_id"] = str(trnsc["_id"])
+        trnsc["merchantId"] = str(trnsc["merchantId"])
+
+    return trnscs
 
 
 class TransactionInDB(BaseModel):
