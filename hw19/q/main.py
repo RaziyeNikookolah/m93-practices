@@ -7,15 +7,12 @@ from typing import Annotated
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-
 client = MongoClient("mongodb://localhost:27017/")
 db = client['transaction']
 
 transaction_collection = db['transaction']
 
 collections_in_db = db.list_collection_names()
-
-# if not 'transaction_user_day_collection' in collections_in_db:
 
 transaction_user_day_collection = db['transaction_user_day_collection']
 if transaction_user_day_collection.find_one() is None:
@@ -43,9 +40,7 @@ if transaction_user_day_collection.find_one() is None:
     ]
 
     result = db.transaction.aggregate(pipeline)
-
     transaction_user_day_collection.insert_many(result)
-
 
 app = FastAPI()
 
@@ -59,28 +54,25 @@ async def main():
     "/search"
 )
 def search_transaction(
-        search_item: Annotated[str, Path(..., enum=["week", "day", "month", "year"])],
-        amount_or_count: Annotated[str, Path(..., enum=["amount", "count"])],
-        tomans_or_rials: Annotated[str, Path(..., enum=["rials", "tomans"])],
+        search_item: Annotated[str, Query(..., enum=["week", "day", "month", "year"])],
+        amount_or_count: Annotated[str, Query(..., enum=["amount", "count"])],
+        tomans_or_rials: Annotated[str, Query(..., enum=["rials", "tomans"])],
         date_from: str,  # Annotated[str, Path(...)],
-        date_to: str
-        # merchant_id: Annotated[str, Path(...)]
+        date_to: str,
+        merchant_id: Annotated[str, Query()]
 ):
-    print(date_from, date_to, 111111111111111111)
-    date_from = datetime.strptime(date_from, "%Y-%m-%d").date().isoformat()
-    date_to = datetime.strptime(date_to, "%Y-%m-%d").date().isoformat()
 
-    # if merchant_id:
-    #     if not ObjectId.is_valid(merchant_id):
-    #         raise HTTPException(status_code=422, detail="Invalid merchant_id")
+    if merchant_id:
+        query = {"$and": [{
+            "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}}, {"_id.merchantId": f'{merchant_id}'}]}
+    else:
+        {
+            "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}}
 
-    docs = list(transaction_user_day_collection.find({
-        "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}
+    docs = list(transaction_user_day_collection.find(query))
 
-    }))
     for trnsc in docs:
         print(trnsc)
-
     return docs
 
 
