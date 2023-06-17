@@ -6,10 +6,6 @@ class User(models.Model):
     last_name = models.CharField(max_length=250)
     phone_number = models.CharField(max_length=13)
     national_code = models.CharField(max_length=10)
-    address = models.ForeignKey(
-        "Address",
-        on_delete=models.CASCADE,
-    )
 
 
 class Address(models.Model):
@@ -17,3 +13,4 @@ class Address(models.Model):
     state = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     street_name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_addresses")
