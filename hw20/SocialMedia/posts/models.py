@@ -19,7 +19,7 @@ class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_addresses")
 
     def __str__(self):
-        return f'{self.city}'
+        return f'{self.city} {self.street_name}'
 
 
 class Post(models.Model):
