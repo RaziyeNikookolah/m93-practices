@@ -14,3 +14,15 @@ class Address(models.Model):
     city = models.CharField(max_length=100)
     street_name = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_addresses")
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=250)
+    body = models.TextField()
+    image = models.ImageField(blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_posts")
+
+
+
+
+
