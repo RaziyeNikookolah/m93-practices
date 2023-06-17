@@ -23,6 +23,10 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_posts")
 
 
+class Comment(models.Model):
+    body = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')
 
 
 
