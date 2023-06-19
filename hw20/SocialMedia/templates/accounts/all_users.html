@@ -10,19 +10,19 @@
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>National Code</th>
-            <th>Phone Number</th>
-            <th>Address</th>
+<!--            <th>National Code</th>-->
+<!--            <th>Phone Number</th>-->
+<!--            <th>Address</th>-->
           </tr>
         </thead>
         <tbody>
          {% for user in users %}
           <tr>
-              <td>{{user.first_name}}</td>
+              <td><a href="{% url 'user_details' user.id %}">{{user.first_name}}</a></td>
               <td>{{user.last_name}}</td>
-              <td>{{user.national_code}}</td>
-              <td>{{user.phone_number}}</td>
-              <td>{{user.address}}</td>
+<!--              <td>{{user.national_code}}</td>-->
+<!--              <td>{{user.phone_number}}</td>-->
+<!--              <td>{{user.address}}</td>-->
           </tr>
         {% endfor %}
         </tbody>
