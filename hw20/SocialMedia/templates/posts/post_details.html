@@ -9,7 +9,17 @@
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <p class="card-text"> {{post.body}} <br>{{post.comment}} <br>Author:{{post.author|capfirst}}</p>
+              <div class="card-text"> {{post.body}} <br>{{post.comment}} <br>Author:{{post.author|capfirst}}
+
+                <div>
+                  Comments:
+                  {% for comment in comments %}
+                    {{comment}}
+                    <hr style="width:50%;text-align:left;margin-left:0">
+                  {% endfor %}
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
