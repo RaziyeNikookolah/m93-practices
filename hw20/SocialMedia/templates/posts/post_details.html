@@ -1,4 +1,20 @@
 {% extends "base.html" %}
-{% block title %}post details{% endblock %}
+{% block title %}Post details{% endblock %}
 {% block content %}
+
+    <div class="container">
+      <h2>{{post.title|capfirst}} {{post.author|capfirst}}</h2>
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text"> {{post.body}} <br>{{post.comment}} <br>Address: {{user.address}}.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 {% endblock %}

@@ -18,7 +18,7 @@
         <tbody>
          {% for user in users %}
           <tr>
-              <td><a href="{% url 'user_details' user.id %}">{{user.first_name}}</a></td>
+              <td><a class="text-decoration-none link-dark" href="{% url 'user_details' user.id %}">{{user.first_name}}</a></td>
               <td>{{user.last_name}}</td>
 <!--              <td>{{user.national_code}}</td>-->
 <!--              <td>{{user.phone_number}}</td>-->
