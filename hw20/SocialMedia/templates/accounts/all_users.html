@@ -1,4 +1,32 @@
 {% extends "base.html" %}
-{% block title %}all users{% endblock %}
+
+{% block title %}All users{% endblock %}
+
 {% block content %}
+ <div class="container">
+      <h2>User List</h2>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>National Code</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+         {% for user in users %}
+          <tr>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              <td>{{user.national_code}}</td>
+              <td>{{user.phone_number}}</td>
+              <td>{{user.address}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
 {% endblock %}
