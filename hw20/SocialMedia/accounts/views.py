@@ -14,3 +14,5 @@ def user_details(request, user_id):
     if request.method == 'GET':
         user = User.objects.get(id=user_id)
         return render(request, 'accounts/user_details.html', {'user': user})
+
+
