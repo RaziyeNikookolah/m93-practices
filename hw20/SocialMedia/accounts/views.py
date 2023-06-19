@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
+from .models import User, Address
 
 
 # Create your views here.
@@ -13,6 +13,5 @@ def all_users(request):
 def user_details(request, user_id):
     if request.method == 'GET':
         user = User.objects.get(id=user_id)
-        return render(request, 'accounts/user_details.html', {'user': user})
-
-
+        addresses = Address.objects.filter(user=user)
+        return render(request, 'accounts/user_details.html', {'user': user, 'addresses': addresses})
