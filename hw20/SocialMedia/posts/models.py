@@ -10,6 +10,9 @@ class User(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+    class Meta:
+        verbose_name_plural = 'Users'
+
 
 class Address(models.Model):
     country = models.CharField(max_length=100)
@@ -21,6 +24,9 @@ class Address(models.Model):
     def __str__(self):
         return f'{self.city} {self.street_name}'
 
+    class Meta:
+        verbose_name_plural = 'Addresses'
+
 
 class Post(models.Model):
     title = models.CharField(max_length=250)
@@ -31,6 +37,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    class Meta:
+        verbose_name_plural = 'Posts'
+
 
 class Comment(models.Model):
     body = models.TextField()
@@ -39,3 +48,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.body}'
+
+    class Meta:
+        verbose_name_plural = 'Comments'
