@@ -98,6 +98,14 @@ def search_transaction(
         },
             "totalCount": {"$sum": "$transactions_count"}
         }
+    elif time_period == "week":
+        group_query = {
+            "_id": {
+                "year": {"$year": {"$toDate": "$_id.createdAt"}},
+                "week": {"$isoWeek": {"$toDate": "$_id.createdAt"}}
+            },
+            "totalCount": {"$sum": "$transactions_count"}
+        }
 
     docs = list(transaction_user_day_collection.aggregate(
         [{'$match': match_query},
