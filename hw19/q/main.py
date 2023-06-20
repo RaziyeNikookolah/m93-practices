@@ -1,11 +1,8 @@
 from fastapi import FastAPI, status, HTTPException, Query, Path
 import uvicorn
-from pydantic import BaseModel
-from enum import Enum
-from datetime import date, datetime
 from typing import Annotated
 from pymongo import MongoClient
-from bson.objectid import ObjectId
+
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client['transaction']
@@ -29,7 +26,7 @@ if transaction_user_day_collection.find_one() is None:
                     }
                 },
                 "totalAmount": {"$sum": "$amount"},
-                "count": {"$sum": 1}
+                "transactions_count": {"$sum": 1}
             }
         },
         {
@@ -54,22 +51,38 @@ async def main():
     "/search"
 )
 def search_transaction(
-        search_item: Annotated[str, Query(..., enum=["week", "day", "month", "year"])],
+        time_period: Annotated[str, Query(..., enum=["week", "day", "month", "year"])],
         amount_or_count: Annotated[str, Query(..., enum=["amount", "count"])],
         tomans_or_rials: Annotated[str, Query(..., enum=["rials", "tomans"])],
         date_from: str,  # Annotated[str, Path(...)],
         date_to: str,
         merchant_id: str = None
 ):
+    match_query = {}
+    group_query = {}
 
     if merchant_id:
-        query = {"$and": [{
+        match_query = {"$and": [{
             "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}}, {"_id.merchantId": f'{merchant_id}'}]}
     else:
-        query = {
+        match_query = {
             "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}}
 
-    docs = list(transaction_user_day_collection.find(query))
+    if time_period == "year":
+        group_query = {"_id": {
+            "$substr": [
+                "$_id.createdAt",
+                0,
+                4
+            ]
+        },
+            "totalCount": {"$sum": "$transactions_count"}
+        }
+
+    docs = list(transaction_user_day_collection.aggregate(
+        [{'$match': match_query},
+         {'$group': group_query}
+         ]))
 
     return docs
 
