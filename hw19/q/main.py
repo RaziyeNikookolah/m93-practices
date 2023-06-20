@@ -59,20 +59,18 @@ def search_transaction(
         tomans_or_rials: Annotated[str, Query(..., enum=["rials", "tomans"])],
         date_from: str,  # Annotated[str, Path(...)],
         date_to: str,
-        merchant_id: Annotated[str, Query()]
+        merchant_id: str = None
 ):
 
     if merchant_id:
         query = {"$and": [{
             "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}}, {"_id.merchantId": f'{merchant_id}'}]}
     else:
-        {
+        query = {
             "_id.createdAt": {"$gte": f'{date_from}', "$lt": f'{date_to}'}}
 
     docs = list(transaction_user_day_collection.find(query))
 
-    for trnsc in docs:
-        print(trnsc)
     return docs
 
 
