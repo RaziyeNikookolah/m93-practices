@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, HTTPException, Query, Path
+from fastapi import FastAPI, Query
 import uvicorn
 from typing import Annotated
 from pymongo import MongoClient
@@ -61,6 +61,8 @@ def search_transaction(
     match_query = {}
     group_query = {}
     total_value = ""
+    currency_multiplier = 1
+
 # merchant id categorizing
     if merchant_id:
         match_query = {"$and": [{
