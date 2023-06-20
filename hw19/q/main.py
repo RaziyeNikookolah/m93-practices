@@ -88,6 +88,16 @@ def search_transaction(
         },
             "totalCount": {"$sum": "$transactions_count"}
         }
+    elif time_period == "day":
+        group_query = {"_id": {
+            "$substr": [
+                "$_id.createdAt",
+                0,
+                9
+            ]
+        },
+            "totalCount": {"$sum": "$transactions_count"}
+        }
 
     docs = list(transaction_user_day_collection.aggregate(
         [{'$match': match_query},
