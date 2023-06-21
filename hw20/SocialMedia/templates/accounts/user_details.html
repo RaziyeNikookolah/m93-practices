@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% block title %}user details{% endblock %}
 {% block content %}
-
     <div class="container">
       <h2>{{user.first_name|capfirst}} {{user.last_name|capfirst}}</h2>
       <div class="row">
-
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">User details:</h5>
               <div class="card-text">
                 National Code: {{user.national_code}} <br>Phone Number: {{user.phone_number}}
+                <hr style="width:100%;text-align:left;margin-left:0">
                 <br>Address:
                   <ul>
                     {% for address in addresses %}
@@ -24,8 +23,8 @@
               </div>
             </div>
           </div>
+          <a href="{% url 'user_posts' user.id %}" class="text-decoration-none link-dark">See all posts of {{user.first_name|capfirst}} {{user.last_name|capfirst}}</a>
         </div>
-
       </div>
     </div>
 

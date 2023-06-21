@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Post details{% endblock %}
 {% block content %}
-
     <div class="container">
       <h2>{{post.title|capfirst}} </h2>
       <div class="row">
-
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
               <div class="card-text"> {{post.body}} <br>{{post.comment}} <br>Author:  {{post.author|capfirst}}
-
                 <div>
+                  <hr style="width:100%;text-align:left;margin-left:0">
                   Comments:
                   <br>
                   <ul>
@@ -23,12 +21,10 @@
                   {% endfor %}
                   </ul>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
