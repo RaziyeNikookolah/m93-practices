@@ -15,3 +15,5 @@ def user_details(request, user_id):
         user = User.objects.get(id=user_id)
         addresses = Address.objects.filter(user=user)
         return render(request, 'accounts/user_details.html', {'user': user, 'addresses': addresses})
+
+
