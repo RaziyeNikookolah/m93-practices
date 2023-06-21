@@ -21,7 +21,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')
 
     def __str__(self):
-        return f'{self.body}'
+        return f'{self.author} says: {self.body} '
 
     class Meta:
         verbose_name_plural = 'Comments'
