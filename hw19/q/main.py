@@ -119,12 +119,18 @@ def search_transaction(
             f"{total_value}": {"$sum": f"${total_value}"}
         }
 
-    docs = list(transaction_user_day_collection.aggregate(
+    docs = transaction_user_day_collection.aggregate(
         [{'$match': match_query},
          {'$group': group_query}
-         ]))
+         ])
 
-    return docs
+    if tomans_or_rials == "tomans" and amount_or_count == "amount":
+        lst = list(docs)
+        for doc in lst:
+            doc['totalAmount'] = doc['totalAmount']/10
+        return lst
+    else:
+        return list(docs)
 
 
 if __name__ == "__main__":
