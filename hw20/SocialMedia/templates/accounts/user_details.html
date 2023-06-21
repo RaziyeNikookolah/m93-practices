@@ -13,10 +13,14 @@
               <div class="card-text">
                 National Code: {{user.national_code}} <br>Phone Number: {{user.phone_number}}
                 <br>Address:
-                  {% for address in addresses %}
-                    {{address}}
-                    <hr style="width:50%;text-align:left;margin-left:0">
-                  {% endfor %}
+                  <ul>
+                    {% for address in addresses %}
+                    <li>
+                      {{address}}
+                      <hr style="width:50%;text-align:left;margin-left:0">
+                      </li>
+                    {% endfor %}
+                  </ul>
               </div>
             </div>
           </div>
