@@ -4,13 +4,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <h2 class="text-center">Login</h2>
+
         <form method="get" action="{% url 'all_posts' %}">
           <div class="form-group">
-            <label for="phone">Phone Number:</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Enter phone number">
+
+            <input type="tel" class="form-control mb-3 mt-5" id="phone" placeholder="Enter phone number">
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          <button type="submit" class="btn btn-primary btn-block mb-3">Login</button>
+          <a href="#" class="text-decoration-none link-dark">Register</a>
         </form>
       </div>
     </div>
