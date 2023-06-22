@@ -22,6 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', views.index, name='index')
-
+    path('', views.index, name='index')#TODO it can be in home app
 ]

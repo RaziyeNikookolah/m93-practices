@@ -2,9 +2,9 @@ from django.db import models
 from accounts.models import User
 
 
-class Post(models.Model):
+class Post(models.Model):#TODO it can have a date
     title = models.CharField(max_length=250)
-    body = models.TextField()
+    body = models.TextField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_posts")
 
