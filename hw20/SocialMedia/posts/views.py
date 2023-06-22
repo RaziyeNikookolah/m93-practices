@@ -8,7 +8,8 @@ def post_details(request, post_id):
     if request.method == 'GET':
         post = Post.objects.get(id=post_id)
         comments=Comment.objects.filter(post=post)
-        return render(request, 'posts/post_details.html', {'post': post,"comments":comments})
+        comments_count=comments.count()
+        return render(request, 'posts/post_details.html', {'post': post,"comments":comments, "comments_count":comments_count})
 
 
 def all_posts(request):
