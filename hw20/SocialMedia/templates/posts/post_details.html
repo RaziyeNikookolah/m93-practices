@@ -8,6 +8,8 @@
           <div class="card">
             <div class="card-body">
               <div class="card-text"> {{post.body}} <br>{{post.comment}} <br>Author:  {{post.author|capfirst}}
+                <br>Email:
+                {{post.author.email}}
                 <div>
                   <hr style="width:100%;text-align:left;margin-left:0">
                   Comments:

@@ -6,6 +6,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=250)
     phone_number = models.CharField(max_length=13)
     national_code = models.CharField(max_length=10)
+    email=models.EmailField(default='me@me.com')
 
     class Meta:
         verbose_name_plural = 'Users'
