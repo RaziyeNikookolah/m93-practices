@@ -14,6 +14,7 @@
                   <hr style="width:100%;text-align:left;margin-left:0">
                   Comments:
                   <br>
+                  {% if comments %}
                   <ul>
 
                   {% for comment in comments %}
@@ -24,6 +25,13 @@
                   {% endfor %}
                     <small>{{comments_count}} comments</small>
                   </ul>
+                  {%else%}
+                  <ul>
+                    <li>
+                      "No Comments for this post yet..!"
+                    </li>
+                  </ul>
+                  {%endif%}
                 </div>
               </div>
             </div>
