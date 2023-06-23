@@ -20,6 +20,7 @@
                   {% for comment in comments %}
                       <li>
                         {{comment}}
+                        <br> {{comment.createdAt}}
                         <hr style="width:50%;text-align:left;margin-left:0">
                       </li>
                   {% endfor %}
@@ -36,6 +37,13 @@
               </div>
             </div>
           </div>
+          <br>
+          <form action="#" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="hidden" name="creatAt" value="{{}}">
+            <br>
+            <input type="submit" value="Add"></form>
         </div>
       </div>
     </div>
