@@ -1,15 +1,32 @@
+from datetime import datetime
+
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Post,Comment
+from .models import Post, Comment
+from .forms import CreateCommentForm
 from accounts.models import User
 
 
 def post_details(request, post_id):
-    if request.method == 'GET':
-        post = Post.objects.get(id=post_id)
-        comments=Comment.objects.filter(post=post)
-        comments_count=comments.count()
-        return render(request, 'posts/post_details.html', {'post': post,"comments":comments, "comments_count":comments_count})
+    post = Post.objects.get(id=post_id)
+    comments = Comment.objects.filter(post=post)
+    comments_count = comments.count()
+    form = CreateCommentForm()
+    if request.method == 'POST':
+        user = User.objects.filter(last_name=request.POST['author'])
+        if user[0]:
+            form = CreateCommentForm(request.POST)
+            if form.is_valid():
+                cd = form.cleaned_data
+                initial_data = {'createdAt': datetime.now(),
+                                'post': post,
+                                'author': user[0],
+                                'isActive': True,
+                                'body': cd['body']}
+                Comment.objects.create(**initial_data)
+
+    return render(request, 'posts/post_details.html',
+                  {"form": form, 'post': post, "comments": comments, "comments_count": comments_count})
+
 
 
 def all_posts(request):

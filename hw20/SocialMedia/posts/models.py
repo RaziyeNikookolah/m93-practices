@@ -21,7 +21,7 @@ class Comment(models.Model):
     body = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')
-    createdAt = models.DateField(auto_created=True)
+    createdAt = models.DateField(auto_now_add=True)
     isActive=models.BooleanField(default=True)
 
     def __str__(self):

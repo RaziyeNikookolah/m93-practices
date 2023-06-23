@@ -38,10 +38,11 @@
             </div>
           </div>
           <br>
-          <form action="#" method="post">
+          <form action="#" method="post" novalidate>
             {% csrf_token %}
             {{ form }}
-            <input type="hidden" name="creatAt" value="{{}}">
+            <br>
+
             <br>
             <input type="submit" value="Add"></form>
         </div>
