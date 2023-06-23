@@ -10,9 +10,7 @@
           <tr>
             <th>Title</th>
             <th>Author</th>
-<!--            <th>National Code</th>-->
-<!--            <th>Phone Number</th>-->
-<!--            <th>Address</th>-->
+
           </tr>
         </thead>
         <tbody>
@@ -23,15 +21,16 @@
               <td><a class="text-decoration-none link-dark" href="{% url 'post_details' post.id %}">{{post.title}}</a></td>
               <td>{{post.author}}</td>
               <td>{{post.image}}</td>
-<!--              <td>{{user.national_code}}</td>-->
-<!--              <td>{{user.phone_number}}</td>-->
-<!--              <td>{{user.address}}</td>-->
+
           </tr>
         {% endfor %}
         </tbody>
       </table>
      <div>
-          <a href="{% url 'all_users' %}" class="text-decoration-none link-dark">All users</a>
+         <a href="{% url 'all_users' %}" class="text-decoration-none link-dark">All users</a>
+         <br>
+         <a href="{% url 'add_post' user.id %}" class="text-decoration-none link-dark">Add a post</a>
+         <p>salam</p>
      </div>
     </div>
 
